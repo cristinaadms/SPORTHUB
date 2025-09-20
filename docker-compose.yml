@@ -1,0 +1,20 @@
+
+services:
+  postgres:
+    image: 'postgres:latest'
+    environment:
+      - 'POSTGRES_DB=sporthub_db'
+      - 'POSTGRES_PASSWORD=sporthub_password'
+      - 'POSTGRES_USER=sporthub_user'
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: 'dpage/pgadmin4:latest'
+    environment:
+      - 'PGADMIN_DEFAULT_EMAIL=sporthub@gmail.com'
+      - 'PGADMIN_DEFAULT_PASSWORD=admin'
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
