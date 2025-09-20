@@ -1,0 +1,55 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build Docker",
+            "type": "shell",
+            "command": "sudo docker compose up --build -d",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Start Docker",
+            "type": "shell",
+            "command": "sudo docker compose up -d",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Stop Docker",
+            "type": "shell",
+            "command": "sudo docker compose down",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Migrations",
+            "type": "shell",
+            "command": "php artisan migrate",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "label": "Serve PHP",
+            "type": "shell",
+            "command": "php artisan serve",
+            "group": "build",
+            "problemMatcher": [],
+            "isBackground": true
+        },
+        {
+            "label": "Vite Dev",
+            "type": "shell",
+            "command": "npm run dev",
+            "group": "build",
+            "problemMatcher": [],
+            "isBackground": true
+        },
+        {
+            "label": "Serve Laravel + Vite",
+            "dependsOn": ["Serve PHP", "Vite Dev"],
+            "dependsOrder": "parallel",
+            "group": "build"
+        }
+    ]
+}
