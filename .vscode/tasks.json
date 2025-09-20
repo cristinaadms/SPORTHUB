@@ -4,21 +4,21 @@
         {
             "label": "Build Docker",
             "type": "shell",
-            "command": "sudo docker compose up --build -d",
+            "command": "docker compose up --build -d",
             "group": "build",
             "problemMatcher": []
         },
         {
             "label": "Start Docker",
             "type": "shell",
-            "command": "sudo docker compose up -d",
+            "command": "docker compose up -d",
             "group": "build",
             "problemMatcher": []
         },
         {
             "label": "Stop Docker",
             "type": "shell",
-            "command": "sudo docker compose down",
+            "command": "docker compose down",
             "group": "build",
             "problemMatcher": []
         },
