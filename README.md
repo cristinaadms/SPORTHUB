@@ -7,7 +7,7 @@ A SportHub é uma plataforma desenvolvida para organizar partidas esportivas e r
 - Registro e login de usuários; 
 - Criação e gerenciamento de partidas esportivas;  
 - Controle de participação e convites;  
-- Sistema de avaliações para locais e jogadores;    
+- Sistema de avaliações para locais e jogadores.   
 
 ## Tecnologias Utilizadas
 PHP, Laravel e Blade.
