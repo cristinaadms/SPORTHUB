@@ -1,7 +1,7 @@
 # SportHub
 
 ## Descrição do Projeto
-A SportHub é uma plataforma desenvolvida para organizar partidas esportivas e reservar quadras. O projeto surge para solucionar a dificuldade que muitas pessoas, especialmente em ambientes universitários, enfrentam para encontrar partidas esportivas e acessar espaços adequados.  
+A SportHub é uma plataforma desenvolvida para organizar partidas esportivas e reservar quadras. O projeto surge para solucionar a dificuldade que muitas pessoas, especialmente em ambientes universitários, enfrentam para encontrar partidas esportivas e acessar espaços adequados. O objetivo é incentivar a prática esportiva, promover maior integração social e otimizar o uso dos espaços disponíveis.
 
 A plataforma oferece uma solução prática e intuitiva, permitindo aos usuários:  
 - Criar e gerenciar partidas esportivas.  
@@ -9,17 +9,15 @@ A plataforma oferece uma solução prática e intuitiva, permitindo aos usuário
 - Gerenciar participantes das partidas.  
 - Avaliar locais e jogadores.  
 
-O objetivo é incentivar a prática esportiva, promover maior integração social e otimizar o uso dos espaços disponíveis.
-
 ## Funcionalidades
-- Registro e login de usuários.  
-- Criação e gerenciamento de partidas.  
-- Controle de participação e convites.  
-- Sistema de avaliações para quadras e jogadores.  
+- Registro e login de usuários; 
+- Criação e gerenciamento de partidas;  
+- Controle de participação e convites;  
+- Sistema de avaliações para quadras e jogadores;  
 - Interface intuitiva e responsiva.  
 
 ## Tecnologias Utilizadas
-PHP, Laravel...
+PHP, Laravel e Blade.
 
 ## Identidade Visual
 ![Image](https://github.com/user-attachments/assets/b9912ab1-110d-48f5-8b0e-3d95702045c2)
