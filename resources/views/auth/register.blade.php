@@ -132,7 +132,7 @@
                     </div>
 
                     <div class="mt-6">
-                        <a href="login.html"
+                        <a href="{{ route('login') }}"
                             class="w-full flex justify-center py-3 px-4 border border-blue-primary text-sm font-semibold rounded-xl text-blue-primary bg-white hover:bg-blue-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-primary transition-all duration-200">
                             Fazer login
                         </a>

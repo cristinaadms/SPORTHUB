@@ -40,7 +40,9 @@
 
         <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div class="bg-white py-8 px-4 shadow-md rounded-2xl sm:px-10">
-                <form class="space-y-6" id="loginForm">
+                <form class="space-y-6" id="loginForm" action="{{ route('login') }}" method="POST">
+                    @csrf
+
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700">
                             Email
@@ -63,9 +65,9 @@
 
                     <div class="flex items-center justify-between">
                         <div class="flex items-center">
-                            <input id="remember-me" name="remember-me" type="checkbox"
+                            <input id="remember" name="remember" type="checkbox"
                                 class="h-4 w-4 text-blue-primary focus:ring-blue-primary border-gray-300 rounded">
-                            <label for="remember-me" class="ml-2 block text-sm text-gray-900">
+                            <label for="remember" class="ml-2 block text-sm text-gray-900">
                                 Lembrar de mim
                             </label>
                         </div>
@@ -105,14 +107,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Simular login bem-sucedido
-            window.location.href = 'index.html';
-        });
-    </script>
 </body>
 </html>
 
