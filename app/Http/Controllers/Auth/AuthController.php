@@ -51,11 +51,11 @@ class AuthController extends Controller
             
             // Redirecionar baseado no role do usuário
             if ($user->isAdmin()) {
-                return redirect()->intended('/admin/dashboard')
+                return redirect()->intended('/admin/index')
                     ->with('success', 'Login realizado com sucesso! Bem-vindo, ' . $user->name);
             }
             
-            return redirect()->intended('/dashboard')
+            return redirect()->intended('/index')
                 ->with('success', 'Login realizado com sucesso! Bem-vindo, ' . $user->name);
         }
 
@@ -83,7 +83,7 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'telefone' => 'required|string|max:20|unique:users',
             'password' => 'required|string|min:6|confirmed',
-            // 'terms' => 'accepted',
+            'terms' => 'accepted',
         ], [
             'name.required' => 'O campo nome é obrigatório.',
             'name.max' => 'O nome não pode ter mais de 255 caracteres.',
@@ -105,8 +105,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            // Debug: Ver os erros
-            // dd($validator->errors()->all());
+
             
             return back()
                 ->withErrors($validator)
@@ -119,13 +118,12 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'telefone' => $request->telefone,
                 'password' => Hash::make($request->password),
-                'role' => 'user',
-                'nota' => 0, // Valor padrão
+                'role' => 'user'
             ]);
 
             Auth::login($user);
 
-            return redirect()->route('dashboard')
+            return redirect()->route('index')
                 ->with('success', 'Conta criada com sucesso! Bem-vindo, ' . $user->name);
 
         } catch (\Exception $e) {

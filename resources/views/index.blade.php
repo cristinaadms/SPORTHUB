@@ -35,7 +35,9 @@
                     </div>
                     <div>
                         <h1 class="text-xl font-bold text-gray-900">SportHub</h1>
-                        <p class="text-sm text-gray-secondary">Olá, João!</p>
+                        <p class="text-sm text-gray-secondary">
+                            Olá, {{ explode(' ', Auth::user()->name)[0] }}!
+                        </p>
                     </div>
                 </div>
                 <button class="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors">
