@@ -17,3 +17,5 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/index', function () {
     return view('index');
 })->middleware(Authenticated::class);
+
+Route::resource('usuarios', UserController::class);
