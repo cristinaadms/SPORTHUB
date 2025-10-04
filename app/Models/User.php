@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class User extends Authenticatable
 {
@@ -15,7 +18,6 @@ class User extends Authenticatable
         'email',
         'telefone',
         'password',
-        'senha',
         'nota',
         'role',
     ];
@@ -31,7 +33,46 @@ class User extends Authenticatable
         'nota' => 'float',
     ];
 
-    // Relacionamentos
+    /* ==========================
+       CRUD / Métodos auxiliares
+    ===========================*/
+
+    public function cadastrar(array $dados)
+    {
+        $dados['password'] = Hash::make($dados['password']);
+        return self::create($dados);
+    }
+
+    public function atualizarDados(array $dados)
+    {
+        if (isset($dados['password'])) {
+            $dados['password'] = Hash::make($dados['password']);
+        }
+        return $this->update($dados);
+    }
+
+    public static function login($email, $password)
+    {
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            return Auth::user();
+        }
+        return null;
+    }
+
+    public static function logout()
+    {
+        Auth::logout();
+    }
+
+    public static function recuperarSenha($email)
+    {
+        return Password::sendResetLink(['email' => $email]);
+    }
+
+    /* ==========================
+       Relacionamentos
+    ===========================*/
+
     public function partidasCriadas()
     {
         return $this->hasMany(Partida::class, 'criador_id');
@@ -54,7 +95,10 @@ class User extends Authenticatable
         return $this->hasMany(Avaliacao::class, 'avaliado_id');
     }
 
-    // Métodos auxiliares
+    /* ==========================
+       Verificações
+    ===========================*/
+
     public function isAdmin()
     {
         return $this->role === 'admin';
@@ -64,20 +108,4 @@ class User extends Authenticatable
     {
         return $this->role === 'user';
     }
-
-    public function cadastrarUsuario($dados)
-    {
-        return self::create($dados);
-    }
-
-    public function editarDadosUsuario($dados)
-    {
-        return $this->update($dados);
-    }
-
-    public function atualizarDadosUsuario($dados)
-    {
-        return $this->update($dados);
-    }
-
 }
