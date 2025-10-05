@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -28,16 +29,19 @@ class UserController extends Controller
         return User::create($dados);
     }
 
-    public function show(User $user)
+    public function show(?User $user = null)
     {
-        return $user;
+        // Se não passar usuário, pega o logado
+        $user = $user ?? Auth::user();
+
+        return view('perfil', compact('user'));
     }
 
     public function update(Request $request, User $user)
     {
         $dados = $request->validate([
             'name' => 'sometimes|string',
-            'email' => 'sometimes|email|unique:users,email,' . $user->id,
+            'email' => 'sometimes|email|unique:users,email,'.$user->id,
             'telefone' => 'nullable|string',
             'password' => 'nullable|min:6',
             'role' => 'in:user,admin',
@@ -55,6 +59,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+
         return response()->json(['message' => 'Usuário removido com sucesso']);
     }
 }

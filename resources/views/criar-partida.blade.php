@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,6 +23,7 @@
         }
     </script>
 </head>
+
 <body class="bg-gray-50 pb-20">
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-40">
@@ -29,7 +31,7 @@
             <div class="flex items-center justify-between">
                 <button onclick="window.history.back()" class="p-2 rounded-xl hover:bg-gray-100 transition-colors">
                     <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                 </button>
                 <h1 class="text-xl font-bold text-gray-900">Criar Partida</h1>
@@ -44,14 +46,13 @@
             <!-- Nome/Descrição da partida -->
             <div class="bg-white rounded-2xl shadow-md p-6">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Informações da Partida</h2>
-                
+
                 <div class="space-y-4">
                     <div>
                         <label for="nome" class="block text-sm font-medium text-gray-700 mb-2">
                             Nome da partida
                         </label>
-                        <input type="text" id="nome" name="nome" required
-                            placeholder="Ex: Futebol Society"
+                        <input type="text" id="nome" name="nome" required placeholder="Ex: Futebol Society"
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-blue-primary transition-colors">
                     </div>
 
@@ -59,8 +60,7 @@
                         <label for="descricao" class="block text-sm font-medium text-gray-700 mb-2">
                             Descrição (opcional)
                         </label>
-                        <textarea id="descricao" name="descricao" rows="3"
-                            placeholder="Descreva detalhes sobre a partida..."
+                        <textarea id="descricao" name="descricao" rows="3" placeholder="Descreva detalhes sobre a partida..."
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-blue-primary transition-colors resize-none"></textarea>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
             <!-- Local -->
             <div class="bg-white rounded-2xl shadow-md p-6">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Local</h2>
-                
+
                 <div>
                     <label for="local" class="block text-sm font-medium text-gray-700 mb-2">
                         Selecione o local
@@ -90,7 +90,7 @@
             <!-- Data e Horário -->
             <div class="bg-white rounded-2xl shadow-md p-6">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Data e Horário</h2>
-                
+
                 <div class="space-y-4">
                     <div>
                         <label for="data" class="block text-sm font-medium text-gray-700 mb-2">
@@ -123,14 +123,15 @@
             <!-- Configurações da Partida -->
             <div class="bg-white rounded-2xl shadow-md p-6">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Configurações</h2>
-                
+
                 <div class="space-y-4">
                     <!-- Número máximo de participantes -->
                     <div>
                         <label for="max-participantes" class="block text-sm font-medium text-gray-700 mb-2">
                             Número máximo de participantes
                         </label>
-                        <input type="number" id="max-participantes" name="max-participantes" min="2" max="50" value="10" required
+                        <input type="number" id="max-participantes" name="max-participantes" min="2"
+                            max="50" value="10" required
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-blue-primary transition-colors">
                     </div>
 
@@ -141,9 +142,10 @@
                         </label>
                         <div class="flex items-center space-x-4">
                             <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="tipo" value="publica" checked
-                                    class="sr-only peer">
-                                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-primary"></div>
+                                <input type="radio" name="tipo" value="publica" checked class="sr-only peer">
+                                <div
+                                    class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-primary">
+                                </div>
                                 <span class="ml-3 text-sm font-medium text-gray-700">Pública</span>
                             </label>
                         </div>
@@ -164,41 +166,13 @@
         </form>
     </main>
 
-    <!-- Menu inferior fixo -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
-        <div class="flex justify-around">
-            <button onclick="window.location.href='index.html'" class="flex flex-col items-center py-2 px-3 text-gray-400 hover:text-blue-primary transition-colors">
-                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                </svg>
-                <span class="text-xs font-medium">Home</span>
-            </button>
-            <button onclick="window.location.href='minhas-partidas.html'" class="flex flex-col items-center py-2 px-3 text-gray-400 hover:text-blue-primary transition-colors">
-                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                </svg>
-                <span class="text-xs font-medium">Partidas</span>
-            </button>
-            <button class="flex flex-col items-center py-2 px-3 text-blue-primary">
-                <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 4v16m8-8H4"/>
-                </svg>
-                <span class="text-xs font-medium">Criar</span>
-            </button>
-            <button onclick="window.location.href='perfil.html'" class="flex flex-col items-center py-2 px-3 text-gray-400 hover:text-blue-primary transition-colors">
-                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                </svg>
-                <span class="text-xs font-medium">Perfil</span>
-            </button>
-        </div>
-    </nav>
+    <x-menu-inferior />
 
     <script>
         // Toggle entre Pública e Privada
         const radioButtons = document.querySelectorAll('input[name="tipo"]');
         const tipoDescricao = document.getElementById('tipo-descricao');
-        
+
         // Criar radio button para Privada
         const publicaLabel = document.querySelector('label:has(input[value="publica"])');
         const privadaLabel = document.createElement('label');
@@ -208,9 +182,9 @@
             <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-400"></div>
             <span class="ml-3 text-sm font-medium text-gray-700">Privada</span>
         `;
-        
+
         publicaLabel.parentNode.appendChild(privadaLabel);
-        
+
         // Atualizar descrição baseada na seleção
         document.addEventListener('change', function(e) {
             if (e.target.name === 'tipo') {
@@ -230,20 +204,20 @@
         // Validação do formulário
         document.getElementById('criarPartidaForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             const horarioInicio = document.getElementById('horario-inicio').value;
             const horarioFim = document.getElementById('horario-fim').value;
-            
+
             if (horarioInicio >= horarioFim) {
                 alert('O horário de fim deve ser posterior ao horário de início!');
                 return;
             }
-            
+
             // Simular criação da partida
             alert('Partida criada com sucesso!');
-            window.location.href = 'index.html';
+            window.location.href = "{{ route('index') }}";
         });
     </script>
 </body>
-</html>
 
+</html>
