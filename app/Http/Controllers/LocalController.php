@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLocalRequest;
+use App\Http\Requests\UpdateLocalRequest;
 use App\Models\Local;
 
 class LocalController extends Controller
 {
+    /**
+     * Display the admin dashboard for managing locations.
+     */
+    public function adminIndex()
+    {
+        $locais = Local::orderBy('created_at', 'desc')->get();
+
+        return view('exclusivo-adm', compact('locais'));
+    }
+
     /**
      * Display a listing of the resource.
      */
