@@ -13,7 +13,9 @@ class LocalController extends Controller
      */
     public function adminIndex()
     {
-        $locais = Local::orderBy('created_at', 'desc')->get();
+        $locais = Local::withCount(['partidas', 'avaliacoes'])
+                      ->orderBy('created_at', 'desc')
+                      ->get();
 
         return view('exclusivo-adm', compact('locais'));
     }
@@ -23,7 +25,9 @@ class LocalController extends Controller
      */
     public function index()
     {
-        $locais = Local::all();
+        $locais = Local::withCount(['partidas', 'avaliacoes'])
+                      ->orderBy('created_at', 'desc')
+                      ->get();
 
         return view('locais.index', compact('locais'));
     }
@@ -57,6 +61,8 @@ class LocalController extends Controller
      */
     public function show(Local $local)
     {
+        $local->load(['partidas', 'avaliacoes']);
+
         return view('locais.show', compact('local'));
     }
 

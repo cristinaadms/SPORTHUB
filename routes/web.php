@@ -23,7 +23,10 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::middleware(Authenticated::class)->group(function () {
     Route::get('/index', [PartidaController::class, 'index'])->name('index');
     Route::get('/minhas-partidas', [PartidaController::class, 'index'])->name('minhas-partidas');
+    Route::get('/criar-partida', [PartidaController::class, 'create'])->name('criar-partida');
     Route::get('/perfil', [UserController::class, 'show'])->name('perfil');
+    Route::get('/locais', [LocalController::class, 'index'])->name('locais.public.index');
+    Route::get('/locais/{local}', [LocalController::class, 'show'])->name('locais.public.show');
     Route::resource('partidas', PartidaController::class);
 });
 
