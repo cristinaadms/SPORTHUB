@@ -29,6 +29,7 @@ Route::middleware(Authenticated::class)->group(function () {
 
 // Rotas exclusivas para administradores
 Route::middleware(AdminMiddleware::class)->group(function () {
+    Route::get('/admin/index', [LocalController::class, 'adminIndex'])->name('admin.index');
     Route::resource('usuarios', UserController::class);
     Route::resource('locais', LocalController::class);
 });
