@@ -17,7 +17,7 @@ class LocalController extends Controller
                       ->orderBy('created_at', 'desc')
                       ->get();
 
-        return view('exclusivo-adm', compact('locais'));
+        return view('admin.index', compact('locais'));
     }
 
     /**

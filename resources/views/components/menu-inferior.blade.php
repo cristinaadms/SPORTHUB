@@ -1,20 +1,4 @@
-<nav class="fixed b        <a href="{{ route('locais.public.index') }}"
-            class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('locais.public.index') || request()->routeIs('locais.public.show') ? 'text-green-600' : 'text-gray-400 hover:text-green-600' }}">
-            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span class="text-xs font-medium">Locais</span>
-        </a>
-
-        <a href="{{ route('criar-partida') }}"
-            class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('criar-partida') ? 'text-blue-primary' : 'text-gray-400 hover:text-blue-primary' }}">
-            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-            </svg>
-            <span class="text-xs font-medium">Criar</span>
-        </a> left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2">
     <div class="flex justify-around">
         <a href="{{ route('index') }}"
             class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('index') ? 'text-blue-primary' : 'text-gray-400 hover:text-blue-primary' }}">
@@ -24,6 +8,7 @@
             </svg>
             <span class="text-xs font-medium">Home</span>
         </a>
+
         <a href="{{ route('minhas-partidas', ['minhas' => 1]) }}"
             class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('minhas-partidas') ? 'text-blue-primary' : 'text-gray-400 hover:text-blue-primary' }}">
             <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24">
@@ -38,17 +23,37 @@
             <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
-            <span class="text-xs font-medium">Criar</span>
+            <span class="text-xs font-medium">Criar Partida</span>
         </a>
 
-        @if(Auth::user() && Auth::user()->isAdmin())
-        <a href="{{ route('admin.index') }}"
-            class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('admin.index') ? 'text-red-600' : 'text-gray-400 hover:text-red-600' }}">
+        <a href="{{ route('locais.index') }}"
+            class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('locais.index') || request()->routeIs('locais.show') ? 'text-green-600' : 'text-gray-400 hover:text-green-600' }}">
             <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-            <span class="text-xs font-medium">Admin</span>
+            <span class="text-xs font-medium">Locais</span>
         </a>
+
+        @if (Auth::user() && Auth::user()->isAdmin())
+            <a href="{{ route('admin.index') }}"
+                class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('admin.index') ? 'text-red-600' : 'text-gray-400 hover:text-red-600' }}">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
+                </svg>
+                <span class="text-xs font-medium">Admin</span>
+            </a>
+
+            <a href="{{ route('locais.create') }}"
+                class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('locais.create') ? 'text-blue-primary' : 'text-gray-400 hover:text-blue-primary' }}">
+                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <span class="text-xs font-medium">Criar Local</span>
+            </a>
         @endif
 
         <a href="{{ route('perfil') }}"
