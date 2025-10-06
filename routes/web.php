@@ -23,10 +23,8 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::middleware(Authenticated::class)->group(function () {
     Route::get('/index', [PartidaController::class, 'index'])->name('index');
     Route::get('/minhas-partidas', [PartidaController::class, 'index'])->name('minhas-partidas');
-    Route::get('/criar-partida', [PartidaController::class, 'create'])->name('criar-partida');
     Route::get('/perfil', [UserController::class, 'show'])->name('perfil');
-    Route::get('/locais', [LocalController::class, 'index'])->name('locais.public.index');
-    Route::get('/locais/{local}', [LocalController::class, 'show'])->name('locais.public.show');
+    Route::resource('locais', LocalController::class)->only(['index', 'show']);
     Route::resource('partidas', PartidaController::class);
 });
 
@@ -34,5 +32,5 @@ Route::middleware(Authenticated::class)->group(function () {
 Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('/admin/index', [LocalController::class, 'adminIndex'])->name('admin.index');
     Route::resource('usuarios', UserController::class);
-    Route::resource('locais', LocalController::class);
+    Route::resource('locais', LocalController::class)->except(['index', 'show']);
 });

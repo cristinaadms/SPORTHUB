@@ -30,7 +30,8 @@
         <div class="px-4 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <button onclick="history.back()" class="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors">
+                    <button onclick="history.back()"
+                        class="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors">
                         <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
@@ -44,7 +45,8 @@
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                 </div>
             </div>
@@ -58,7 +60,9 @@
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-6" role="alert">
                 <div class="flex items-start">
                     <svg class="w-5 h-5 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                            clip-rule="evenodd"></path>
                     </svg>
                     <div>
                         <p class="font-semibold mb-1">Por favor, corrija os seguintes erros:</p>
@@ -74,13 +78,14 @@
 
         <!-- Formulário de Criação -->
         <div class="bg-white rounded-2xl shadow-md">
-            <form action="{{ route('locais.store') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
+            <form action="{{ route('locais.store') }}" method="POST" enctype="multipart/form-data"
+                class="p-6 space-y-6">
                 @csrf
-                
+
                 <!-- Informações Básicas -->
                 <div class="border-b border-gray-200 pb-6">
                     <h2 class="text-lg font-semibold text-gray-900 mb-4">Informações Básicas</h2>
-                    
+
                     <div class="space-y-4">
                         <div>
                             <label for="nome" class="block text-sm font-medium text-gray-700 mb-2">
@@ -97,7 +102,7 @@
                 <!-- Localização -->
                 <div class="border-b border-gray-200 pb-6">
                     <h2 class="text-lg font-semibold text-gray-900 mb-4">Localização</h2>
-                    
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label for="latitude" class="block text-sm font-medium text-gray-700 mb-2">
@@ -112,7 +117,8 @@
                             <label for="longitude" class="block text-sm font-medium text-gray-700 mb-2">
                                 Longitude <span class="text-red-500">*</span>
                             </label>
-                            <input type="text" id="longitude" name="longitude" value="{{ old('longitude') }}" required
+                            <input type="text" id="longitude" name="longitude" value="{{ old('longitude') }}"
+                                required
                                 class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-transparent transition-colors"
                                 placeholder="-46.633308">
                             <p class="text-xs text-gray-500 mt-1">Coordenada de longitude</p>
@@ -122,12 +128,15 @@
                     <div class="mt-4 p-4 bg-blue-light rounded-xl">
                         <div class="flex items-start space-x-3">
                             <svg class="w-5 h-5 text-blue-primary mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                                <path fill-rule="evenodd"
+                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                    clip-rule="evenodd"></path>
                             </svg>
                             <div>
                                 <p class="text-sm font-medium text-blue-text">Dica para obter coordenadas:</p>
                                 <p class="text-xs text-blue-text mt-1">
-                                    Acesse o Google Maps, clique com o botão direito no local desejado e copie as coordenadas que aparecem no menu.
+                                    Acesse o Google Maps, clique com o botão direito no local desejado e copie as
+                                    coordenadas que aparecem no menu.
                                 </p>
                             </div>
                         </div>
@@ -137,7 +146,7 @@
                 <!-- Imagem -->
                 <div class="border-b border-gray-200 pb-6">
                     <h2 class="text-lg font-semibold text-gray-900 mb-4">Imagem do Local</h2>
-                    
+
                     <div class="space-y-4">
                         <div>
                             <label for="imagem" class="block text-sm font-medium text-gray-700 mb-2">
@@ -155,11 +164,13 @@
                         <div id="imagePreview" class="hidden">
                             <p class="text-sm font-medium text-gray-700 mb-2">Preview:</p>
                             <div class="relative w-full h-48 bg-gray-100 rounded-xl overflow-hidden">
-                                <img id="previewImg" src="" alt="Preview" class="w-full h-full object-cover">
-                                <button type="button" onclick="removePreview()" 
+                                <img id="previewImg" src="" alt="Preview"
+                                    class="w-full h-full object-cover">
+                                <button type="button" onclick="removePreview()"
                                     class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors">
                                     <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </button>
                             </div>
@@ -172,14 +183,16 @@
                     <button type="button" onclick="history.back()"
                         class="flex-1 px-6 py-3 border border-gray-300 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 transition-colors">
                         <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
                         </svg>
                         Cancelar
                     </button>
                     <button type="submit"
                         class="flex-1 px-6 py-3 bg-blue-primary hover:bg-blue-hover text-white font-semibold rounded-xl transition-colors">
                         <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 13l4 4L19 7" />
                         </svg>
                         Criar Local
                     </button>
