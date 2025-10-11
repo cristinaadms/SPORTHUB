@@ -55,7 +55,7 @@ class AuthController extends Controller
                     ->with('success', 'Login realizado com sucesso! Bem-vindo, ' . $user->name);
             }
             
-            return redirect()->intended('/index')
+            return redirect()->intended('/')
                 ->with('success', 'Login realizado com sucesso! Bem-vindo, ' . $user->name);
         }
 

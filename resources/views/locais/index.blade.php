@@ -1,30 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SportHub - Locais</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'blue-primary': '#2563EB',
-                        'blue-hover': '#1D4ED8',
-                        'blue-light': '#EFF6FF',
-                        'blue-text': '#1E40AF',
-                        'gray-secondary': '#6B7280',
-                        'gray-light': '#E5E7EB'
-                    }
-                }
-            }
-        }
-    </script>
-</head>
+@section('title', 'SportHub - Locais')
 
-<body class="bg-gray-50 pb-20">
+@section('content')
     <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="px-4 py-4">
@@ -50,8 +28,7 @@
                         <a href="{{ route('locais.create') }}"
                             class="bg-blue-primary hover:bg-blue-hover text-white px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
                             <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4v16m8-8H4" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                             </svg>
                             Novo Local
                         </a>
@@ -108,8 +85,7 @@
                 <div class="bg-white rounded-2xl shadow-md p-4">
                     <div class="flex items-center">
                         <div class="bg-blue-light rounded-xl p-3 mr-4">
-                            <svg class="w-6 h-6 text-blue-primary" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-6 h-6 text-blue-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -125,10 +101,8 @@
                 <div class="bg-white rounded-2xl shadow-md p-4">
                     <div class="flex items-center">
                         <div class="bg-green-100 rounded-xl p-3 mr-4">
-                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
                         <div>
@@ -140,8 +114,7 @@
                 <div class="bg-white rounded-2xl shadow-md p-4 md:col-span-1 col-span-2">
                     <div class="flex items-center">
                         <div class="bg-purple-100 rounded-xl p-3 mr-4">
-                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                             </svg>
@@ -179,8 +152,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="listaLocais">
                 @forelse($locais as $local)
                     <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow local-card"
-                        data-nome="{{ strtolower($local->nome) }}"
-                        data-tem-foto="{{ $local->imagem ? 'sim' : 'nao' }}"
+                        data-nome="{{ strtolower($local->nome) }}" data-tem-foto="{{ $local->imagem ? 'sim' : 'nao' }}"
                         data-criado="{{ $local->created_at->format('Y-m-d') }}">
 
                         <!-- Imagem ou placeholder -->
@@ -227,8 +199,7 @@
 
                             <div class="space-y-2 mb-4">
                                 <div class="flex items-center text-sm text-gray-secondary">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                     </svg>
@@ -237,8 +208,7 @@
                                 </div>
 
                                 <div class="flex items-center text-sm text-gray-secondary">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
@@ -284,8 +254,7 @@
                                 @if (Auth::user() && Auth::user()->isAdmin())
                                     <a href="{{ route('locais.edit', $local->id) }}"
                                         class="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold text-sm rounded-lg transition-colors">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>
@@ -307,8 +276,7 @@
                             @if (Auth::user() && Auth::user()->isAdmin())
                                 <a href="{{ route('locais.create') }}"
                                     class="inline-flex items-center px-4 py-2 bg-blue-primary hover:bg-blue-hover text-white font-semibold rounded-xl transition-colors">
-                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M12 4v16m8-8H4" />
                                     </svg>
@@ -321,10 +289,8 @@
             </div>
         </section>
     </main>
-
-    <!-- Menu inferior fixo -->
-    <x-menu-inferior />
-
+@endsection
+@push('scripts')
     <script>
         // Função para filtrar locais
         function filtrarLocais(tipo) {
@@ -390,6 +356,4 @@
             });
         }, 5000);
     </script>
-</body>
-
-</html>
+@endpush

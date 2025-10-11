@@ -1,80 +1,12 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SportHub - Editar Local</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'blue-primary': '#2563EB',
-                        'blue-hover': '#1D4ED8',
-                        'blue-light': '#EFF6FF',
-                        'blue-text': '#1E40AF',
-                        'gray-secondary': '#6B7280',
-                        'gray-light': '#E5E7EB'
-                    }
-                }
-            }
-        }
-    </script>
-</head>
+@section('title', 'SportHub - Editar Local')
 
-<body class="bg-gray-50 pb-20">
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="px-4 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <button onclick="history.back()"
-                        class="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors">
-                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                        </svg>
-                    </button>
-                    <div>
-                        <h1 class="text-xl font-bold text-gray-900">Editar Local</h1>
-                        <p class="text-sm text-gray-secondary">Modificar informações do local</p>
-                    </div>
-                </div>
-                <div class="bg-yellow-500 rounded-xl p-2">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
-                </div>
-            </div>
-        </div>
-    </header>
+@section('content')
+    <x-header title="Editar Local" />
 
     <!-- Conteúdo principal -->
     <main class="px-4 py-6">
-        <!-- Mensagens de erro -->
-        @if ($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-6" role="alert">
-                <div class="flex items-start">
-                    <svg class="w-5 h-5 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <div>
-                        <p class="font-semibold mb-1">Por favor, corrija os seguintes erros:</p>
-                        <ul class="list-disc list-inside">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        <!-- Formulário de Edição -->
         <div class="bg-white rounded-2xl shadow-md">
             <form action="{{ route('locais.update', $local->id) }}" method="POST" enctype="multipart/form-data"
                 class="p-6 space-y-6">
@@ -82,50 +14,22 @@
                 @method('PUT')
 
                 <!-- Informações Básicas -->
-                <div class="border-b border-gray-200 pb-6">
-                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Informações Básicas</h2>
-
-                    <div class="space-y-4">
-                        <div>
-                            <label for="nome" class="block text-sm font-medium text-gray-700 mb-2">
-                                Nome do Local <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" id="nome" name="nome" value="{{ old('nome', $local->nome) }}"
-                                required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-transparent transition-colors"
-                                placeholder="Ex: Arena Sports Center">
-                            <p class="text-xs text-gray-500 mt-1">Digite um nome descritivo para o local</p>
-                        </div>
-                    </div>
-                </div>
+                <x-form.section title="Informações Básicas">
+                    <x-form.input label="Nome do Local" name="nome" placeholder="Ex: Arena Sports Center"
+                        value="{{ $local->nome }}" required help="Digite um nome descritivo para o local" />
+                </x-form.section>
 
                 <!-- Localização -->
-                <div class="border-b border-gray-200 pb-6">
-                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Localização</h2>
-
+                <x-form.section title="Localização">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="latitude" class="block text-sm font-medium text-gray-700 mb-2">
-                                Latitude <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" id="latitude" name="latitude"
-                                value="{{ old('latitude', $local->latitude) }}" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-transparent transition-colors"
-                                placeholder="-23.550520">
-                            <p class="text-xs text-gray-500 mt-1">Coordenada de latitude</p>
-                        </div>
-                        <div>
-                            <label for="longitude" class="block text-sm font-medium text-gray-700 mb-2">
-                                Longitude <span class="text-red-500">*</span>
-                            </label>
-                            <input type="text" id="longitude" name="longitude"
-                                value="{{ old('longitude', $local->longitude) }}" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-transparent transition-colors"
-                                placeholder="-46.633308">
-                            <p class="text-xs text-gray-500 mt-1">Coordenada de longitude</p>
-                        </div>
+                        <x-form.input label="Latitude" name="latitude" placeholder="-23.550520"
+                            value="{{ $local->latitude }}" required help="Coordenada de latitude" />
+
+                        <x-form.input label="Longitude" name="longitude" placeholder="-46.633308"
+                            value="{{ $local->longitude }}" required help="Coordenada de longitude" />
                     </div>
 
+                    {{-- Dica --}}
                     <div class="mt-4 p-4 bg-blue-light rounded-xl">
                         <div class="flex items-start space-x-3">
                             <svg class="w-5 h-5 text-blue-primary mt-0.5" fill="currentColor" viewBox="0 0 20 20">
@@ -142,56 +46,50 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </x-form.section>
 
-                <!-- Imagem -->
-                <div class="border-b border-gray-200 pb-6">
-                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Imagem do Local</h2>
+                {{-- Imagem --}}
+                <x-form.section title="Imagem do Local">
+                    <x-form.input label="Foto do Local" name="imagem" type="file"
+                        help="Máximo 2MB. Formatos aceitos: JPG, PNG, GIF" onchange="previewImage(event)" />
 
-                    <!-- Imagem atual -->
-                    @if ($local->imagem)
-                        <div class="mb-4">
-                            <p class="text-sm font-medium text-gray-700 mb-2">Imagem atual:</p>
-                            <div class="relative w-full h-48 bg-gray-100 rounded-xl overflow-hidden">
-                                <img src="data:image/jpeg;base64,{{ base64_encode($local->imagem) }}"
-                                    alt="Imagem atual do local" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                    @endif
-
-                    <div class="space-y-4">
-                        <div>
-                            <label for="imagem" class="block text-sm font-medium text-gray-700 mb-2">
-                                {{ $local->imagem ? 'Nova Foto do Local' : 'Foto do Local' }}
-                            </label>
-                            <div class="relative">
-                                <input type="file" id="imagem" name="imagem" accept="image/*"
-                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-transparent transition-colors"
-                                    onchange="previewImage(event)">
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1">
-                                {{ $local->imagem ? 'Deixe em branco para manter a imagem atual. ' : '' }}Máximo 2MB.
-                                Formatos aceitos: JPG, PNG, GIF
-                            </p>
-                        </div>
-
-                        <!-- Preview da nova imagem -->
-                        <div id="imagePreview" class="hidden">
-                            <p class="text-sm font-medium text-gray-700 mb-2">Nova imagem (preview):</p>
-                            <div class="relative w-full h-48 bg-gray-100 rounded-xl overflow-hidden">
-                                <img id="previewImg" src="" alt="Preview"
-                                    class="w-full h-full object-cover">
-                                <button type="button" onclick="removePreview()"
-                                    class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors">
-                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
+                    {{-- Preview --}}
+                    <div id="imagePreview" class="hidden">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Preview:</p>
+                        <div class="relative w-full h-48 bg-gray-100 rounded-xl overflow-hidden">
+                            <img id="previewImg" src="" alt="Preview" class="w-full h-full object-cover">
+                            <button type="button" onclick="removePreview()"
+                                class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
                         </div>
                     </div>
-                </div>
+                </x-form.section>
+
+
+                <x-form.section title="Imagem do Local">
+                    <x-form.input label="{{ $local->imagem ? 'Nova Foto do Local' : 'Foto do Local' }}" name="imagem"
+                        type="file" :current="$local->imagem ? 'data:image/jpeg;base64,' . base64_encode($local->imagem) : null"
+                        help="{{ $local->imagem ? 'Deixe em branco para manter a imagem atual. ' : '' }}Máximo 2MB. Formatos aceitos: JPG, PNG, GIF" />
+
+                    {{-- Preview da nova imagem --}}
+                    <div id="imagePreview" class="hidden">
+                        <p class="text-sm font-medium text-gray-700 mb-2">Nova imagem (preview):</p>
+                        <div class="relative w-full h-48 bg-gray-100 rounded-xl overflow-hidden">
+                            <img id="previewImg" src="" alt="Preview" class="w-full h-full object-cover">
+                            <button type="button" onclick="removePreview()"
+                                class="absolute top-2 right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center hover:bg-red-600 transition-colors">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </x-form.section>
 
                 <!-- Informações Adicionais -->
                 <div class="border-b border-gray-200 pb-6">
@@ -222,8 +120,7 @@
                     <button type="submit"
                         class="flex-1 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-xl transition-colors">
                         <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 13l4 4L19 7" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
                         Salvar Alterações
                     </button>
@@ -252,8 +149,7 @@
     </main>
 
     <!-- Modal Confirmação Exclusão -->
-    <div id="modalExcluir"
-        class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+    <div id="modalExcluir" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-xl max-w-md w-full">
             <div class="p-6">
                 <div class="flex items-center justify-center mb-4">
@@ -288,9 +184,8 @@
         </div>
     </div>
 
-    <!-- Menu inferior fixo -->
-    <x-menu-inferior />
-
+@endsection
+@push('scripts')
     <script>
         // Preview da imagem
         function previewImage(event) {
@@ -366,6 +261,4 @@
             }
         });
     </script>
-</body>
-
-</html>
+@endpush
