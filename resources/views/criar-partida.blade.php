@@ -1,68 +1,24 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SportHub - Criar Partida</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'blue-primary': '#2563EB',
-                        'blue-hover': '#1D4ED8',
-                        'blue-light': '#EFF6FF',
-                        'blue-text': '#1E40AF',
-                        'gray-secondary': '#6B7280',
-                        'gray-light': '#E5E7EB'
-                    }
-                }
-            }
-        }
-    </script>
-</head>
+@section('title', 'SportHub - Criar Partida')
 
-<body class="bg-gray-50 pb-20">
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="px-4 py-4">
-            <div class="flex items-center justify-between">
-                <button onclick="window.history.back()" class="p-2 rounded-xl hover:bg-gray-100 transition-colors">
-                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-                <h1 class="text-xl font-bold text-gray-900">Criar Partida</h1>
-                <div class="w-10"></div> <!-- Spacer -->
-            </div>
-        </div>
-    </header>
+@section('content')
+    <x-header title="Criar Partida" :backButton="true" />
 
     <!-- Formulário -->
     <main class="px-4 py-6">
         <form id="criarPartidaForm" class="space-y-6">
+            @csrf
+
             <!-- Nome/Descrição da partida -->
             <div class="bg-white rounded-2xl shadow-md p-6">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Informações da Partida</h2>
 
                 <div class="space-y-4">
-                    <div>
-                        <label for="nome" class="block text-sm font-medium text-gray-700 mb-2">
-                            Nome da partida
-                        </label>
-                        <input type="text" id="nome" name="nome" required placeholder="Ex: Futebol Society"
-                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-blue-primary transition-colors">
-                    </div>
+                    <x-form.input label="Nome da partida" name="nome" :required="true" placeholder="Ex: Futebol Society" />
 
-                    <div>
-                        <label for="descricao" class="block text-sm font-medium text-gray-700 mb-2">
-                            Descrição (opcional)
-                        </label>
-                        <textarea id="descricao" name="descricao" rows="3" placeholder="Descreva detalhes sobre a partida..."
-                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-blue-primary transition-colors resize-none"></textarea>
-                    </div>
+                    <x-form.textarea label="Descrição (opcional)" name="descricao"
+                        placeholder="Descreva detalhes sobre a partida..." :rows="3" />
                 </div>
             </div>
 
@@ -70,21 +26,15 @@
             <div class="bg-white rounded-2xl shadow-md p-6">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Local</h2>
 
-                <div>
-                    <label for="local" class="block text-sm font-medium text-gray-700 mb-2">
-                        Selecione o local
-                    </label>
-                    <select id="local" name="local" required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-blue-primary transition-colors bg-white">
-                        <option value="">Escolha um local</option>
-                        <option value="arena-sports">Arena Sports Center</option>
-                        <option value="quadra-parque">Quadra do Parque</option>
-                        <option value="praia-copacabana">Praia de Copacabana</option>
-                        <option value="clube-tenis">Clube de Tênis</option>
-                        <option value="ginasio-municipal">Ginásio Municipal</option>
-                        <option value="campo-universitario">Campo Universitário</option>
-                    </select>
-                </div>
+                <x-form.select label="Selecione o local" name="local" :required="true" placeholder="Escolha um local"
+                    :options="[
+                        'arena-sports' => 'Arena Sports Center',
+                        'quadra-parque' => 'Quadra do Parque',
+                        'praia-copacabana' => 'Praia de Copacabana',
+                        'clube-tenis' => 'Clube de Tênis',
+                        'ginasio-municipal' => 'Ginásio Municipal',
+                        'campo-universitario' => 'Campo Universitário',
+                    ]" />
             </div>
 
             <!-- Data e Horário -->
@@ -92,30 +42,12 @@
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Data e Horário</h2>
 
                 <div class="space-y-4">
-                    <div>
-                        <label for="data" class="block text-sm font-medium text-gray-700 mb-2">
-                            Data
-                        </label>
-                        <input type="date" id="data" name="data" required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-blue-primary transition-colors">
-                    </div>
+                    <x-form.input type="date" label="Data" name="data" :required="true" />
 
                     <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label for="horario-inicio" class="block text-sm font-medium text-gray-700 mb-2">
-                                Horário de início
-                            </label>
-                            <input type="time" id="horario-inicio" name="horario-inicio" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-blue-primary transition-colors">
-                        </div>
+                        <x-form.input type="time" label="Horário de início" name="horario-inicio" :required="true" />
 
-                        <div>
-                            <label for="horario-fim" class="block text-sm font-medium text-gray-700 mb-2">
-                                Horário de fim
-                            </label>
-                            <input type="time" id="horario-fim" name="horario-fim" required
-                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-blue-primary transition-colors">
-                        </div>
+                        <x-form.input type="time" label="Horário de fim" name="horario-fim" :required="true" />
                     </div>
                 </div>
             </div>
@@ -126,14 +58,8 @@
 
                 <div class="space-y-4">
                     <!-- Número máximo de participantes -->
-                    <div>
-                        <label for="max-participantes" class="block text-sm font-medium text-gray-700 mb-2">
-                            Número máximo de participantes
-                        </label>
-                        <input type="number" id="max-participantes" name="max-participantes" min="2"
-                            max="50" value="10" required
-                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-blue-primary transition-colors">
-                    </div>
+                    <x-form.input type="number" label="Número máximo de participantes" name="max-participantes"
+                        :required="true" value="10" min="2" max="50" />
 
                     <!-- Toggle Pública/Privada -->
                     <div>
@@ -165,9 +91,9 @@
             </div>
         </form>
     </main>
+@endsection
 
-    <x-menu-inferior />
-
+@push('scripts')
     <script>
         // Toggle entre Pública e Privada
         const radioButtons = document.querySelectorAll('input[name="tipo"]');
@@ -218,6 +144,4 @@
             window.location.href = "{{ route('index') }}";
         });
     </script>
-</body>
-
-</html>
+@endpush
