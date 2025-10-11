@@ -28,6 +28,34 @@
 </head>
 
 <body class="bg-gray-50 pb-20">
+    <!-- Container para alerts -->
+    <div class="max-w-md mx-auto mt-6">
+        {{-- Erros de validação --}}
+        @if ($errors->any())
+            <x-alert type="error" dismissible>
+                <p class="font-semibold mb-1">Por favor, corrija os seguintes erros:</p>
+                <ul class="list-disc list-inside">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </x-alert>
+        @endif
+
+
+        {{-- Mensagens de sessão --}}
+        @if (session('success'))
+            <x-alert type="success">
+                {{ session('success') }}
+            </x-alert>
+        @endif
+        @if (session('error'))
+            <x-alert type="error">
+                {{ session('error') }}
+            </x-alert>
+        @endif
+    </div>
+
     @yield('content')
 
     <x-menu-inferior />

@@ -19,9 +19,10 @@
     @endif
     <input type="{{ $type }}" id="{{ $name }}" name="{{ $name }}" value="{{ old($name, $value) }}"
         {{ $required ? 'required' : '' }} placeholder="{{ $placeholder }}"
-        {{ $attributes->merge(['class' => 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-transparent transition-colors']) }}>
+        {{ $attributes->merge(['class' => 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-transparent transition-colors']) }}
+        @if ($type === 'file') onchange="previewImage(event)" @endif>
     @if ($help)
-        <p class="text-xs text-gray-500 mt-1">{{ $help }}</p>
+        <p class="text-xs text-gray-500 mt-1">{!! $help !!}</p>
     @endif
     @error($name)
         <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
