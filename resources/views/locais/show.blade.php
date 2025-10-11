@@ -1,37 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SportHub - {{ $local->nome }}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'blue-primary': '#2563EB',
-                        'blue-hover': '#1D4ED8',
-                        'blue-light': '#EFF6FF',
-                        'blue-text': '#1E40AF',
-                        'gray-secondary': '#6B7280',
-                        'gray-light': '#E5E7EB'
-                    }
-                }
-            }
-        }
-    </script>
-</head>
+@section('title', 'SportHub - {{ $local->nome }}')
 
-<body class="bg-gray-50 pb-20">
-    <!-- Header -->
+@section('content')
     <header class="bg-white shadow-sm sticky top-0 z-40">
         <div class="px-4 py-4">
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-3">
-                    <button onclick="history.back()"
-                        class="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors">
+                    <button onclick="history.back()" class="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors">
                         <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                         </svg>
@@ -131,8 +107,7 @@
                     <!-- Nome -->
                     <div class="flex items-start space-x-3">
                         <div class="bg-blue-light rounded-lg p-2">
-                            <svg class="w-5 h-5 text-blue-primary" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-blue-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                             </svg>
@@ -307,8 +282,7 @@
                     <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                         <a href="{{ route('locais.edit', $local->id) }}"
                             class="flex-1 px-4 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-xl transition-colors text-center">
-                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
@@ -316,8 +290,7 @@
                         </a>
                         <a href="{{ Auth::user()->isAdmin() ? route('admin.index') : route('locais.index') }}"
                             class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors text-center">
-                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                             </svg>
@@ -329,9 +302,8 @@
         @endif
     </main>
 
-    <!-- Menu inferior fixo -->
-    <x-menu-inferior />
-
+@endsection
+@push('scripts')
     <script>
         // Abrir no Google Maps
         function abrirMapa() {
@@ -354,6 +326,4 @@
             }
         }, 5000);
     </script>
-</body>
-
-</html>
+@endpush
