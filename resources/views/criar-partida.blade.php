@@ -10,22 +10,18 @@
         <form id="criarPartidaForm" class="space-y-6">
             @csrf
 
-            <!-- Nome/Descrição da partida -->
-            <div class="bg-white rounded-2xl shadow-md p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Informações da Partida</h2>
-
+            <x-form.section title="Informações da Partida">
                 <div class="space-y-4">
                     <x-form.input label="Nome da partida" name="nome" :required="true" placeholder="Ex: Futebol Society" />
 
                     <x-form.textarea label="Descrição (opcional)" name="descricao"
                         placeholder="Descreva detalhes sobre a partida..." :rows="3" />
                 </div>
-            </div>
+            </x-form.section>
+
 
             <!-- Local -->
-            <div class="bg-white rounded-2xl shadow-md p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Local</h2>
-
+            <x-form.section title="Local">
                 <x-form.select label="Selecione o local" name="local" :required="true" placeholder="Escolha um local"
                     :options="[
                         'arena-sports' => 'Arena Sports Center',
@@ -35,12 +31,9 @@
                         'ginasio-municipal' => 'Ginásio Municipal',
                         'campo-universitario' => 'Campo Universitário',
                     ]" />
-            </div>
+            </x-form.section>
 
-            <!-- Data e Horário -->
-            <div class="bg-white rounded-2xl shadow-md p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Data e Horário</h2>
-
+            <x-form.section title="Data e Horário">
                 <div class="space-y-4">
                     <x-form.input type="date" label="Data" name="data" :required="true" />
 
@@ -50,12 +43,9 @@
                         <x-form.input type="time" label="Horário de fim" name="horario-fim" :required="true" />
                     </div>
                 </div>
-            </div>
+            </x-form.section>
 
-            <!-- Configurações da Partida -->
-            <div class="bg-white rounded-2xl shadow-md p-6">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Configurações</h2>
-
+            <x-form.section title="Configurações">
                 <div class="space-y-4">
                     <!-- Número máximo de participantes -->
                     <x-form.input type="number" label="Número máximo de participantes" name="max-participantes"
@@ -80,7 +70,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </x-form.section>
 
             <!-- Botão Criar Partida -->
             <div class="pt-4">
