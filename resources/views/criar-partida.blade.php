@@ -3,7 +3,7 @@
 @section('title', 'SportHub - Criar Partida')
 
 @section('content')
-    <x-header title="Criar Partida" :backButton="true" />
+    <x-header title="Criar Partida" />
 
     <!-- Formulário -->
     <main class="px-4 py-6">
