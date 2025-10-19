@@ -73,7 +73,7 @@
             </div>
         </div>
 
-        <div class="mt-2 flex space-x-2 justify-end">
+        <div class="mt-2 flex flex-col space-y-2 items-end">
             <!-- Botão principal -->
             <button
                 @if (!$isDisabled) onclick="{{ $buttonAction ?? "window.location.href='$url'" }}" @endif
@@ -88,6 +88,17 @@
                     class="px-4 py-2 bg-yellow-500 text-white rounded-xl text-sm font-medium hover:bg-yellow-600 transition-colors">
                     Editar Partida
                 </a>
+
+                <!-- Botão de remoção -->
+                <form action="{{ route('partidas.destroy', $id) }}" method="POST"
+                    onsubmit="return confirm('Tem certeza que deseja remover esta partida?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                        class="px-4 py-2 bg-red-500 text-white rounded-xl text-sm font-medium hover:bg-red-600 transition-colors">
+                        Remover Partida
+                    </button>
+                </form>
             @endif
         </div>
     </div>

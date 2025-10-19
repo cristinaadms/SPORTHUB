@@ -42,7 +42,7 @@
             <x-form.section title="Data e Horário">
                 <div class="space-y-4">
                     <x-form.input type="datetime-local" label="Data e Horário" name="data" :required="true"
-                        :value="old('data')" :value="old('data', $partida ? $partida->data->format('Y-m-d\TH:i') : '')" />
+                        :value="old('data', $isEdit ? $partida->data->format('Y-m-d\TH:i') : '')" />
                 </div>
             </x-form.section>
 

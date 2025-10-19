@@ -71,7 +71,7 @@ class PartidaController extends Controller
         $dados['criador_id'] = Auth::id();
         Partida::create($dados);
 
-        return redirect()->route('index')->with('success', 'Partida criada com sucesso!');
+        return redirect()->route('minhas-partidas')->with('success', 'Partida criada com sucesso!');
     }
 
     // public function show(Partida $partida)
@@ -105,13 +105,13 @@ class PartidaController extends Controller
 
         $partida->update($dados);
 
-        return redirect()->route('index')->with('success', 'Partida atualizada com sucesso!');
+        return redirect()->route('minhas-partidas')->with('success', 'Partida atualizada com sucesso!');
     }
 
     public function destroy(Partida $partida)
     {
         $partida->delete();
 
-        return redirect()->route('index')->with('success', 'Partida removida com sucesso!');
+        return redirect()->route('minhas-partidas')->with('success', 'Partida removida com sucesso!');
     }
 }
