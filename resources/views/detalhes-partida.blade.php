@@ -9,30 +9,25 @@
     <main class="px-4 py-6 space-y-6">
         <!-- Card principal da partida -->
         <div class="bg-white rounded-2xl shadow-md overflow-hidden">
-            <x-partida-header tipo="publica" status="confirmado" titulo="Futebol Society"
-                descricao="Partida amistosa entre amigos" />
-
+            <x-partida-header :tipo="$partida->tipo" :status="$statusUsuario" :titulo="$partida->nome" :descricao="$partida->descricao" :organizador="$partida->criador->name" />
 
             <!-- Informações da partida -->
             <div class="p-6 space-y-4">
-                <x-partida-info-grid local="Arena Sports Center" horario="19:00 - 21:00" data="Hoje"
-                    participantes="8/10" />
+                <x-partida-info-grid :local="$partida->local->nome" :horario="$partida->getHoraFormatada()" :data="$partida->getDiaFormatado()" :participantes="$partida->participantesConfirmados()->count() . '/' . $partida->quantPessoas" />
 
-                <x-descricao-card
-                    descricao="Partida amistosa de futebol society. Venha se divertir e fazer novos amigos! Nível iniciante a intermediário. Chuteiras recomendadas." />
+                <x-descricao-card :descricao="$partida->descricao" />
             </div>
         </div>
 
-        <x-participantes-list :participantes="[
-            ['nome' => 'Marcos Silva', 'organizador' => true, 'cor' => 'blue'],
-            ['nome' => 'João Santos', 'cargo' => 'Você', 'cor' => 'green', 'status' => 'Confirmado'],
-            ['nome' => 'Ana Costa', 'cargo' => 'Meia', 'cor' => 'purple', 'status' => 'Confirmado'],
-            ['nome' => 'Pedro Lima', 'cargo' => 'Atacante', 'cor' => 'red', 'status' => 'Confirmado'],
-            ['nome' => 'Carlos Mendes', 'cargo' => 'Zagueiro', 'cor' => 'indigo', 'status' => 'Confirmado'],
-            ['nome' => 'Lucas Oliveira', 'cargo' => 'Goleiro', 'cor' => 'yellow', 'status' => 'Confirmado'],
-            ['nome' => 'Fernanda Rocha', 'cargo' => 'Lateral', 'cor' => 'pink', 'status' => 'Confirmado'],
-            ['nome' => 'Rafael Souza', 'cargo' => 'Volante', 'cor' => 'teal', 'status' => 'Confirmado'],
-        ]" />
+        <x-participantes-list :participantes="$partida->participantes->map(function ($user) use ($partida) {
+            return [
+                'nome' => $user->name,
+                'cargo' => $user->id === auth()->id() ? 'Você' : null,
+                'organizador' => $user->id === $partida->criador_id,
+                'status' => $user->pivot->status,
+                'cor' => $user->id === $partida->criador_id ? 'blue' : 'green',
+            ];
+        })" />
 
         <x-partida-actions />
     </main>

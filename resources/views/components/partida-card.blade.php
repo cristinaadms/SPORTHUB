@@ -30,7 +30,7 @@
         'class' => 'bg-blue-primary hover:bg-blue-hover text-white',
     ];
 
-    $isDisabled = in_array($status, ['lotado', 'pendente', 'finalizada']);
+    $isDisabled = !$organizador && in_array($status, ['lotado', 'pendente', 'finalizada']);
 @endphp
 
 <div

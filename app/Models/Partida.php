@@ -146,4 +146,32 @@ class Partida extends Model
     {
         return $this->participantesConfirmados()->count() < $this->quantPessoas;
     }
+
+    public function getDataFormatada()
+    {
+        return $this->data ? $this->data->format('d/m/Y H:i') : null;
+    }
+
+    public function getDiaFormatado()
+    {
+        return $this->data ? $this->data->format('d/m/Y') : null;
+    }
+
+    public function getHoraFormatada()
+    {
+        return $this->data ? $this->data->format('H:i') : null;
+    }
+
+    public function participantesFormatados()
+    {
+        return $this->participantes->map(function ($user) {
+            return [
+                'nome' => $user->name,
+                'cargo' => $user->id === auth()->id() ? 'Você' : null,
+                'organizador' => $user->id === $this->criador_id,
+                'status' => $user->pivot->status,
+                'cor' => $user->id === $this->criador_id ? 'blue' : 'green',
+            ];
+        });
+    }
 }

@@ -75,12 +75,21 @@ class PartidaController extends Controller
     }
 
     // public function show(Partida $partida)
-    public function show()
+    public function show(Partida $partida)
     {
-        // $partida->load('participantes', 'local', 'criador');
+        $userId = Auth::id();
 
-        // return view('partidas.show', compact('partida'));
-        return view('detalhes-partida');
+        if ($partida->criador_id === $userId) {
+            $statusUsuario = 'organizador';
+        } elseif ($partida->participantesConfirmados()->where('user_id', $userId)->exists()) {
+            $statusUsuario = 'confirmado';
+        } elseif ($partida->participantesEspera()->where('user_id', $userId)->exists()) {
+            $statusUsuario = 'pendente';
+        } else {
+            $statusUsuario = 'disponivel';
+        }
+
+        return view('detalhes-partida', compact('partida', 'statusUsuario'));
     }
 
     public function edit(Partida $partida)

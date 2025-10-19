@@ -37,8 +37,7 @@
     <main class="px-4 py-6 space-y-4">
         @forelse ($partidas as $partida)
             <x-partida-card tipo="{{ $partida->tipo }}" titulo="{{ $partida->nome ?? $partida->modalidade }}"
-                local="{{ $partida->local->nome }}"
-                horario="{{ $partida->data->format('d/m/Y H:i') }}"
+                local="{{ $partida->local->nome }}" horario="{{ $partida->getDataFormatada() }}"
                 status="{{ $partida->participantesConfirmados()->where('user_id', Auth::id())->exists() ? 'confirmado' : 'pendente' }}"
                 participantes="{{ $partida->participantesConfirmados()->count() }}/{{ $partida->quantPessoas }}"
                 organizador="{{ $partida->criador_id === Auth::id() ? 'true' : 'false' }}"
@@ -46,4 +45,5 @@
         @empty
             <p class="text-gray-500">Você ainda não tem partidas criadas ou confirmadas.</p>
         @endforelse
-</main>@endsection
+    </main>
+@endsection
