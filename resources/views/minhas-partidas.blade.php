@@ -34,24 +34,16 @@
         </div>
     </x-header>
 
-    <!-- Conteúdo principal -->
     <main class="px-4 py-6 space-y-4">
-
-        <!-- Partida confirmada -->
-        <x-partida-card tipo="publica" titulo="Futebol Society" local="Arena Sports Center" horario="Hoje, 19:00 - 21:00"
-            status="confirmado" url="{{ route('partidas.show', [1]) }}" />
-
-        <!-- Partida pendente -->
-        <x-partida-card tipo="privada" titulo="Tênis Duplas" local="Clube de Tênis" horario="Quinta, 18:00 - 20:00"
-            status="pendente" />
-
-        <!-- Partida criada por mim -->
-        <x-partida-card tipo="publica" titulo="Basquete 3x3" local="Quadra do Parque" horario="Sábado, 15:00 - 17:00"
-            status="disponivel" participantes="4/6" organizador="true"
-            buttonAction="window.location.href='{{ route('partidas.show', [1]) }}'" />
-
-        <!-- Partida passada -->
-        <x-partida-card tipo="publica" titulo="Vôlei de Praia" local="Praia de Copacabana" horario="Ontem, 08:00 - 10:00"
-            status="finalizada" buttonAction="window.location.href='{{ route('partidas.show', [1]) }}'" />
-    </main>
-@endsection
+        @forelse ($partidas as $partida)
+            <x-partida-card tipo="{{ $partida->tipo }}" titulo="{{ $partida->titulo ?? $partida->modalidade }}"
+                local="{{ $partida->local->nome }}"
+                horario="{{ $partida->data->format('d/m/Y') }}, {{ $partida->horario_inicio ?? '??:??' }} - {{ $partida->horario_fim ?? '??:??' }}"
+                status="{{ $partida->participantesConfirmados()->where('user_id', Auth::id())->exists() ? 'confirmado' : 'pendente' }}"
+                participantes="{{ $partida->participantesConfirmados()->count() }}/{{ $partida->quantPessoas }}"
+                organizador="{{ $partida->criador_id === Auth::id() ? 'true' : 'false' }}"
+                buttonAction="window.location.href='{{ route('partidas.show', $partida->id) }}'" />
+        @empty
+            <p class="text-gray-500">Você ainda não tem partidas criadas ou confirmadas.</p>
+        @endforelse
+</main>@endsection

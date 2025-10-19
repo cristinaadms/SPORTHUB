@@ -10,6 +10,8 @@ class Partida extends Model
     use HasFactory;
 
     protected $fillable = [
+        'nome',
+        'descricao',
         'data',
         'quantPessoas',
         'quantEspera',
@@ -83,19 +85,19 @@ class Partida extends Model
     public function buscarPartida($filtros)
     {
         $query = self::query();
-        
+
         if (isset($filtros['modalidade'])) {
             $query->where('modalidade', $filtros['modalidade']);
         }
-        
+
         if (isset($filtros['data'])) {
             $query->whereDate('data', $filtros['data']);
         }
-        
+
         if (isset($filtros['tipo'])) {
             $query->where('tipo', $filtros['tipo']);
         }
-        
+
         return $query->get();
     }
 
@@ -107,7 +109,7 @@ class Partida extends Model
     public function aceitarPedido($userId)
     {
         $participantesConfirmados = $this->participantesConfirmados()->count();
-        
+
         if ($participantesConfirmados < $this->quantPessoas) {
             return $this->participantes()->updateExistingPivot($userId, ['status' => 'confirmado']);
         } else {
