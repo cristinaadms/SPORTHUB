@@ -36,16 +36,18 @@
             </svg>
             <span class="text-xs font-medium">Locais</span>
         </a>
-
-        @if (Auth::user() && Auth::user()->isAdmin())
+        
+        <!--
+            @if (Auth::user() && Auth::user()->isAdmin())
             <a href="{{ route('admin.index') }}"
-                class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('admin.index') ? 'text-red-600' : 'text-gray-400 hover:text-red-600' }}">
-                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
-                </svg>
-                <span class="text-xs font-medium">Admin</span>
-            </a>
+            class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('admin.index') ? 'text-red-600' : 'text-gray-400 hover:text-red-600' }}">
+            <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
+            </svg>
+            <span class="text-xs font-medium">Admin</span>
+        </a>
+        -->
 
             <a href="{{ route('local.create') }}"
                 class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('locais.create') ? 'text-blue-primary' : 'text-gray-400 hover:text-blue-primary' }}">

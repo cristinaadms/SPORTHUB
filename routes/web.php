@@ -14,7 +14,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-// Rotas exclusivas para administradores
+// Rotas exclusivas para administradores -- Provavelmente vamos tirar
 Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('/admin/index', [LocalController::class, 'adminIndex'])->name('admin.index');
     Route::resource('usuarios', UserController::class);
