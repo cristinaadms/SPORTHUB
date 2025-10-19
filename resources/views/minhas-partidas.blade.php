@@ -36,9 +36,9 @@
 
     <main class="px-4 py-6 space-y-4">
         @forelse ($partidas as $partida)
-            <x-partida-card tipo="{{ $partida->tipo }}" titulo="{{ $partida->titulo ?? $partida->modalidade }}"
+            <x-partida-card tipo="{{ $partida->tipo }}" titulo="{{ $partida->nome ?? $partida->modalidade }}"
                 local="{{ $partida->local->nome }}"
-                horario="{{ $partida->data->format('d/m/Y') }}, {{ $partida->horario_inicio ?? '??:??' }} - {{ $partida->horario_fim ?? '??:??' }}"
+                horario="{{ $partida->data->format('d/m/Y H:i') }}"
                 status="{{ $partida->participantesConfirmados()->where('user_id', Auth::id())->exists() ? 'confirmado' : 'pendente' }}"
                 participantes="{{ $partida->participantesConfirmados()->count() }}/{{ $partida->quantPessoas }}"
                 organizador="{{ $partida->criador_id === Auth::id() ? 'true' : 'false' }}"

@@ -46,13 +46,12 @@ class PartidaController extends Controller
     {
         $userId = Auth::id();
 
-        // Busca partidas criadas pelo usuário
         $partidas = Partida::with('local', 'participantes')
                     ->where('criador_id', $userId)
                     ->orWhereHas('participantes', function ($query) use ($userId) {
                         $query->where('user_id', $userId);
                     })
-                    ->orderBy('data', 'desc')
+                    ->orderBy('data', 'asc')
                     ->get();
 
         return view('minhas-partidas', compact('partidas'));

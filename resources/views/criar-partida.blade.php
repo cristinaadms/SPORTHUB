@@ -31,13 +31,8 @@
 
             <x-form.section title="Data e Horário">
                 <div class="space-y-4">
-                    <x-form.input type="date" label="Data" name="data" :required="true" />
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <x-form.input type="time" label="Horário de início" name="horario-inicio" :required="true" />
-
-                        <x-form.input type="time" label="Horário de fim" name="horario-fim" :required="true" />
-                    </div>
+                    <x-form.input type="datetime-local" label="Data e Horário" name="data" :required="true"
+                        :value="old('data')" />
                 </div>
             </x-form.section>
 

@@ -23,7 +23,7 @@ class Partida extends Model
     ];
 
     protected $casts = [
-        'data' => 'date',
+        'data' => 'datetime',
         'valor' => 'float',
     ];
 
