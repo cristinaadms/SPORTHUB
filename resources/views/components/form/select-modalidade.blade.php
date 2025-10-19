@@ -1,4 +1,4 @@
-<x-form.select :label="$label" :name="$name" :required="$required" :value="$value" :options="[
+<x-form.select :label="$label" :name="$name" :required="$required" :selected="$selected" :options="[
     'basquete' => 'Basquete',
     'futsal' => 'Futsal',
     'volei' => 'Vôlei',

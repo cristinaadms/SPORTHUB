@@ -96,7 +96,7 @@ class PartidaController extends Controller
     {
         $locais = Local::all();
 
-        return view('partidas.edit', compact('partida', 'locais'));
+        return view('criar-partida', compact('partida', 'locais'));
     }
 
     public function update(Request $request, Partida $partida)

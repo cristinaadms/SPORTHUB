@@ -4,7 +4,7 @@
     'required' => false,
     'placeholder' => 'Selecione uma opção',
     'options' => [],
-    'selected' => '',
+    'selected' => null,
     'help' => null,
 ])
 
@@ -17,18 +17,21 @@
             @endif
         </label>
     @endif
+
     <select id="{{ $name }}" name="{{ $name }}" {{ $required ? 'required' : '' }}
         {{ $attributes->merge(['class' => 'w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-primary focus:border-blue-primary transition-colors bg-white']) }}>
         <option value="">{{ $placeholder }}</option>
         @foreach ($options as $value => $text)
-            <option value="{{ $value }}" {{ old($name, $selected) == $value ? 'selected' : '' }}>
+            <option value="{{ $value }}" {{ old($name, (string) $selected) == (string) $value ? 'selected' : '' }}>
                 {{ $text }}
             </option>
         @endforeach
     </select>
+
     @if ($help)
         <p class="text-xs text-gray-500 mt-1">{{ $help }}</p>
     @endif
+
     @error($name)
         <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
     @enderror

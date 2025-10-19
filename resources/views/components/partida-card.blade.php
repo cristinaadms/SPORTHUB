@@ -1,4 +1,5 @@
 @props([
+    'id' => null,
     'tipo' => 'publica',
     'titulo' => '',
     'local' => '',
@@ -72,10 +73,22 @@
             </div>
         </div>
 
-        <button @if (!$isDisabled) onclick="{{ $buttonAction ?? "window.location.href='$url'" }}" @endif
-            {{ $isDisabled ? 'disabled' : '' }}
-            class="{{ $currentButton['class'] }} px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
-            {{ $currentButton['text'] }}
-        </button>
+        <div class="mt-2 flex space-x-2 justify-end">
+            <!-- Botão principal -->
+            <button
+                @if (!$isDisabled) onclick="{{ $buttonAction ?? "window.location.href='$url'" }}" @endif
+                {{ $isDisabled ? 'disabled' : '' }}
+                class="{{ $currentButton['class'] }} px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
+                {{ $currentButton['text'] }}
+            </button>
+
+            <!-- Botão de edição (apenas para organizador) -->
+            @if ($organizador)
+                <a href="{{ route('partidas.edit', $id) }}"
+                    class="px-4 py-2 bg-yellow-500 text-white rounded-xl text-sm font-medium hover:bg-yellow-600 transition-colors">
+                    Editar Partida
+                </a>
+            @endif
+        </div>
     </div>
 </div>

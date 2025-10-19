@@ -9,14 +9,14 @@ class SelectModalidade extends Component
     public $label;
     public $name;
     public $required;
-    public $value;
+    public $selected;
 
-    public function __construct($label = 'Modalidade', $name = 'modalidade', $required = false, $value = null)
+    public function __construct($label = 'Modalidade', $name = 'modalidade', $required = false, $selected = null)
     {
         $this->label = $label;
         $this->name = $name;
         $this->required = $required;
-        $this->value = $value;
+        $this->selected = $selected;
     }
 
     public function render()
