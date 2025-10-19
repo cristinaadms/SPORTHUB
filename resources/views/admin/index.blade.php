@@ -230,7 +230,7 @@
                     </button>
                 </div>
 
-                <form action="{{ route('locais.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+                <form action="{{ route('local.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                     @csrf
                     <div>
                         <label for="nome" class="block text-sm font-medium text-gray-700 mb-2">Nome do Local</label>

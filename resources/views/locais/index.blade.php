@@ -25,7 +25,7 @@
                 </div>
                 @if (Auth::user() && Auth::user()->isAdmin())
                     <div class="flex space-x-2">
-                        <a href="{{ route('locais.create') }}"
+                        <a href="{{ route('local.create') }}"
                             class="bg-blue-primary hover:bg-blue-hover text-white px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
                             <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -232,12 +232,12 @@
 
                             <!-- Botões de ação -->
                             <div class="flex space-x-2">
-                                <a href="{{ route('locais.show', $local->id) }}"
+                                <a href="{{ route('local.show', $local->id) }}"
                                     class="flex-1 px-3 py-2 bg-blue-primary hover:bg-blue-hover text-white font-semibold text-sm rounded-lg transition-colors text-center">
                                     Ver Detalhes
                                 </a>
                                 @if (Auth::user() && Auth::user()->isAdmin())
-                                    <a href="{{ route('locais.edit', $local->id) }}"
+                                    <a href="{{ route('local.edit', $local->id) }}"
                                         class="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold text-sm rounded-lg transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -259,7 +259,7 @@
                             <h3 class="text-lg font-medium text-gray-900 mb-2">Nenhum local encontrado</h3>
                             <p class="text-gray-500 mb-6">Ainda não há locais cadastrados no sistema.</p>
                             @if (Auth::user() && Auth::user()->isAdmin())
-                                <a href="{{ route('locais.create') }}"
+                                <a href="{{ route('local.create') }}"
                                     class="inline-flex items-center px-4 py-2 bg-blue-primary hover:bg-blue-hover text-white font-semibold rounded-xl transition-colors">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

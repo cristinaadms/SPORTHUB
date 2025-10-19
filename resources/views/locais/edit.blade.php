@@ -8,7 +8,7 @@
     <!-- Conteúdo principal -->
     <main class="px-4 py-6">
         <div class="bg-white rounded-2xl shadow-md">
-            <form action="{{ route('locais.update', $local->id) }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('local.update', $local->id) }}" method="POST" enctype="multipart/form-data"
                 class="p-6 space-y-6">
                 @csrf
                 @method('PUT')
@@ -171,7 +171,7 @@
                         class="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
                         Cancelar
                     </button>
-                    <form action="{{ route('locais.destroy', $local->id) }}" method="POST" class="flex-1">
+                    <form action="{{ route('local.destroy', $local->id) }}" method="POST" class="flex-1">
                         @csrf
                         @method('DELETE')
                         <button type="submit"

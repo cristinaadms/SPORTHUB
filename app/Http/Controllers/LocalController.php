@@ -53,7 +53,7 @@ class LocalController extends Controller
 
         Local::create($dados);
 
-        return redirect()->route('locais.index')->with('success', 'Local criado com sucesso!');
+        return redirect()->route('local.index')->with('success', 'Local criado com sucesso!');
     }
 
     /**
@@ -87,7 +87,7 @@ class LocalController extends Controller
 
         $local->update($dados);
 
-        return redirect()->route('locais.index')->with('success', 'Local atualizado com sucesso!');
+        return redirect()->route('local.index')->with('success', 'Local atualizado com sucesso!');
     }
 
     /**
@@ -97,6 +97,6 @@ class LocalController extends Controller
     {
         $local->delete();
 
-        return redirect()->route('locais.index')->with('success', 'Local removido com sucesso!');
+        return redirect()->route('local.index')->with('success', 'Local removido com sucesso!');
     }
 }

@@ -26,7 +26,7 @@
             <span class="text-xs font-medium">Criar Partida</span>
         </a>
 
-        <a href="{{ route('locais.index') }}"
+        <a href="{{ route('local.index') }}"
             class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('locais.index') || request()->routeIs('locais.show') ? 'text-green-600' : 'text-gray-400 hover:text-green-600' }}">
             <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -47,7 +47,7 @@
                 <span class="text-xs font-medium">Admin</span>
             </a>
 
-            <a href="{{ route('locais.create') }}"
+            <a href="{{ route('local.create') }}"
                 class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('locais.create') ? 'text-blue-primary' : 'text-gray-400 hover:text-blue-primary' }}">
                 <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />

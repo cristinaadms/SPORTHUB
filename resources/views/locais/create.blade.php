@@ -8,7 +8,7 @@
     <!-- Formulário de Criação -->
     <main class="px-4 py-6">
         <div class="bg-white rounded-2xl shadow-md">
-            <form action="{{ route('locais.store') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
+            <form action="{{ route('local.store') }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
                 @csrf
 
                 <!-- Informações Básicas -->

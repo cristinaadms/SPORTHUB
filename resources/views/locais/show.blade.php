@@ -19,7 +19,7 @@
                 </div>
                 @if (Auth::user() && Auth::user()->isAdmin())
                     <div class="flex space-x-2">
-                        <a href="{{ route('locais.edit', $local->id) }}"
+                        <a href="{{ route('local.edit', $local->id) }}"
                             class="p-2 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-white transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -280,7 +280,7 @@
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Ações do Administrador</h3>
 
                     <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-                        <a href="{{ route('locais.edit', $local->id) }}"
+                        <a href="{{ route('local.edit', $local->id) }}"
                             class="flex-1 px-4 py-3 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold rounded-xl transition-colors text-center">
                             <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -288,7 +288,7 @@
                             </svg>
                             Editar Local
                         </a>
-                        <a href="{{ Auth::user()->isAdmin() ? route('admin.index') : route('locais.index') }}"
+                        <a href="{{ Auth::user()->isAdmin() ? route('admin.index') : route('local.index') }}"
                             class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors text-center">
                             <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
