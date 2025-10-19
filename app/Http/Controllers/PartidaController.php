@@ -9,6 +9,25 @@ use Illuminate\Support\Facades\Auth;
 
 class PartidaController extends Controller
 {
+    private function validatePartida(Request $request): array
+    {
+        $dados = $request->validate([
+            'nome' => 'required|string',
+            'descricao' => 'nullable|string',
+            'data' => 'required|date',
+            'quantPessoas' => 'required|integer|min:1',
+            'quantEspera' => 'nullable|integer|min:0',
+            'valor' => 'required|numeric|min:0',
+            'modalidade' => 'required|string',
+            'tipo' => 'required|in:publica,privada',
+            'local_id' => 'required|exists:locais,id',
+        ]);
+
+        $dados['quantEspera'] = $dados['quantEspera'] ?? 0;
+
+        return $dados;
+    }
+
     // Lista de partidas já carregada no index
     public function index(Request $request)
     {
@@ -23,68 +42,76 @@ class PartidaController extends Controller
         return view('index', compact('partidas'));
     }
 
+    public function minhasPartidas()
+    {
+        $userId = Auth::id();
+
+        $partidas = Partida::with('local', 'participantes')
+                    ->where('criador_id', $userId)
+                    ->orWhereHas('participantes', function ($query) use ($userId) {
+                        $query->where('user_id', $userId);
+                    })
+                    ->orderBy('data', 'asc')
+                    ->get();
+
+        return view('minhas-partidas', compact('partidas'));
+    }
+
     public function create()
     {
-        $locais = Local::all();
+        $locais = Local::orderBy('nome')->get();
 
         return view('criar-partida', compact('locais'));
     }
 
     public function store(Request $request)
     {
-        $dados = $request->validate([
-            'data' => 'required|date',
-            'quantPessoas' => 'required|integer|min:1',
-            'quantEspera' => 'nullable|integer|min:0',
-            'valor' => 'required|numeric|min:0',
-            'modalidade' => 'required|string',
-            'tipo' => 'required|in:publica,privada',
-            'local_id' => 'required|exists:locais,id',
-        ]);
+        $dados = $this->validatePartida($request);
 
         $dados['criador_id'] = Auth::id();
         Partida::create($dados);
 
-        return redirect()->route('index')->with('success', 'Partida criada com sucesso!');
+        return redirect()->route('minhas-partidas')->with('success', 'Partida criada com sucesso!');
     }
 
     // public function show(Partida $partida)
-    public function show()
+    public function show(Partida $partida)
     {
-        // $partida->load('participantes', 'local', 'criador');
+        $userId = Auth::id();
 
-        // return view('partidas.show', compact('partida'));
-        return view('detalhes-partida');
+        if ($partida->criador_id === $userId) {
+            $statusUsuario = 'organizador';
+        } elseif ($partida->participantesConfirmados()->where('user_id', $userId)->exists()) {
+            $statusUsuario = 'confirmado';
+        } elseif ($partida->participantesEspera()->where('user_id', $userId)->exists()) {
+            $statusUsuario = 'pendente';
+        } else {
+            $statusUsuario = 'disponivel';
+        }
+
+        return view('detalhes-partida', compact('partida', 'statusUsuario'));
     }
 
     public function edit(Partida $partida)
     {
         $locais = Local::all();
 
-        return view('partidas.edit', compact('partida', 'locais'));
+        return view('criar-partida', compact('partida', 'locais'));
     }
 
     public function update(Request $request, Partida $partida)
     {
-        $dados = $request->validate([
-            'data' => 'required|date',
-            'quantPessoas' => 'required|integer|min:1',
-            'quantEspera' => 'nullable|integer|min:0',
-            'valor' => 'required|numeric|min:0',
-            'modalidade' => 'required|string',
-            'tipo' => 'required|in:publica,privada',
-            'local_id' => 'required|exists:locais,id',
-        ]);
+        $dados = $this->validatePartida($request);
 
         $partida->update($dados);
 
-        return redirect()->route('index')->with('success', 'Partida atualizada com sucesso!');
+        return redirect()->route('minhas-partidas')->with('success', 'Partida atualizada com sucesso!');
     }
 
     public function destroy(Partida $partida)
     {
         $partida->delete();
 
-        return redirect()->route('index')->with('success', 'Partida removida com sucesso!');
+        return redirect()->route('minhas-partidas')->with('success', 'Partida removida com sucesso!');
     }
 }

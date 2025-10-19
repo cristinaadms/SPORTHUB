@@ -1,74 +1,85 @@
+@php
+    $isEdit = isset($partida); // Verifica se é edição
+    $formAction = $isEdit ? route('partidas.update', $partida->id) : route('partidas.store');
+    $formMethod = $isEdit ? 'PUT' : 'POST';
+    $pageTitle = $isEdit ? 'Editar Partida' : 'Criar Partida';
+@endphp
+
 @extends('layouts.app')
 
-@section('title', 'SportHub - Criar Partida')
+@section('title', 'SportHub - {{ $pageTitle }}')
 
 @section('content')
-    <x-header title="Criar Partida" />
+    <x-header :title="$pageTitle" />
 
     <!-- Formulário -->
     <main class="px-4 py-6">
-        <form id="criarPartidaForm" class="space-y-6">
+        <form id="criarPartidaForm" class="space-y-6" method="POST" action="{{ $formAction }}">
             @csrf
+            @if ($isEdit)
+                @method('PUT')
+            @endif
 
             <x-form.section title="Informações da Partida">
                 <div class="space-y-4">
-                    <x-form.input label="Nome da partida" name="nome" :required="true" placeholder="Ex: Futebol Society" />
+                    <x-form.input label="Nome da partida" name="nome" :required="true" placeholder="Ex: Futebol Society"
+                        :value="old('nome', $partida->nome ?? '')" />
 
                     <x-form.textarea label="Descrição (opcional)" name="descricao"
-                        placeholder="Descreva detalhes sobre a partida..." :rows="3" />
+                        placeholder="Descreva detalhes sobre a partida..." :rows="3" :value="old('descricao', $partida->descricao ?? '')" />
+
+                    <x-form.select-modalidade :required="true" :selected="old('modalidade', $partida->modalidade ?? '')" />
                 </div>
             </x-form.section>
 
 
             <!-- Local -->
             <x-form.section title="Local">
-                <x-form.select label="Selecione o local" name="local" :required="true" placeholder="Escolha um local"
-                    :options="[
-                        'arena-sports' => 'Arena Sports Center',
-                        'quadra-parque' => 'Quadra do Parque',
-                        'praia-copacabana' => 'Praia de Copacabana',
-                        'clube-tenis' => 'Clube de Tênis',
-                        'ginasio-municipal' => 'Ginásio Municipal',
-                        'campo-universitario' => 'Campo Universitário',
-                    ]" />
+                <x-form.select label="Selecione o local" name="local_id" :required="true" placeholder="Escolha um local"
+                    :options="$locais->pluck('nome', 'id')" :selected="old('local_id', $partida->local_id ?? '')" />
             </x-form.section>
 
             <x-form.section title="Data e Horário">
                 <div class="space-y-4">
-                    <x-form.input type="date" label="Data" name="data" :required="true" />
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <x-form.input type="time" label="Horário de início" name="horario-inicio" :required="true" />
-
-                        <x-form.input type="time" label="Horário de fim" name="horario-fim" :required="true" />
-                    </div>
+                    <x-form.input type="datetime-local" label="Data e Horário" name="data" :required="true"
+                        :value="old('data', $isEdit ? $partida->data->format('Y-m-d\TH:i') : '')" />
                 </div>
             </x-form.section>
 
             <x-form.section title="Configurações">
                 <div class="space-y-4">
                     <!-- Número máximo de participantes -->
-                    <x-form.input type="number" label="Número máximo de participantes" name="max-participantes"
-                        :required="true" value="10" min="2" max="50" />
+                    <x-form.input type="number" label="Número máximo de participantes" name="quantPessoas"
+                        :required="true" min="2" max="50" :value="old('quantPessoas', $partida->quantPessoas ?? '10')" />
+
+                    <x-form.input type="number" label="Valor da partida" name="valor" :required="true" min="0"
+                        step="0.01" :value="old('valor', $partida->valor ?? '0')" />
 
                     <!-- Toggle Pública/Privada -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-3">
                             Tipo de partida
                         </label>
-                        <div class="flex items-center space-x-4">
-                            <label class="flex items-center cursor-pointer">
-                                <input type="radio" name="tipo" value="publica" checked class="sr-only peer">
+
+                        <div class="flex items-center space-x-3">
+                            <span class="text-gray-700 text-sm">Privada</span>
+
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="tipo-toggle" name="tipo" value="publica" class="sr-only peer"
+                                    {{ old('tipo', $partida->tipo ?? 'publica') === 'publica' ? 'checked' : '' }}>
                                 <div
-                                    class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-primary">
+                                    class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-primary relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full">
                                 </div>
-                                <span class="ml-3 text-sm font-medium text-gray-700">Pública</span>
                             </label>
+
+                            <span class="text-gray-700 text-sm">Pública</span>
                         </div>
+
                         <div class="mt-2 text-sm text-gray-secondary">
-                            <span id="tipo-descricao">Qualquer pessoa pode se inscrever na partida</span>
+                            <span id="tipo-descricao"></span>
                         </div>
                     </div>
+
                 </div>
             </x-form.section>
 
@@ -76,7 +87,7 @@
             <div class="pt-4">
                 <button type="submit"
                     class="w-full bg-blue-primary hover:bg-blue-hover text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-200 shadow-md hover:shadow-lg">
-                    Criar Partida
+                    {{ $isEdit ? 'Atualizar Partida' : 'Criar Partida' }}
                 </button>
             </div>
         </form>
@@ -85,53 +96,39 @@
 
 @push('scripts')
     <script>
-        // Toggle entre Pública e Privada
-        const radioButtons = document.querySelectorAll('input[name="tipo"]');
-        const tipoDescricao = document.getElementById('tipo-descricao');
+        // Toggle Pública/Privada
+        const toggle = document.getElementById('tipo-toggle');
+        const descricao = document.getElementById('tipo-descricao');
 
-        // Criar radio button para Privada
-        const publicaLabel = document.querySelector('label:has(input[value="publica"])');
-        const privadaLabel = document.createElement('label');
-        privadaLabel.className = 'flex items-center cursor-pointer';
-        privadaLabel.innerHTML = `
-            <input type="radio" name="tipo" value="privada" class="sr-only peer">
-            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-400"></div>
-            <span class="ml-3 text-sm font-medium text-gray-700">Privada</span>
-        `;
+        function atualizarDescricao() {
+            descricao.textContent = toggle.checked ?
+                'Qualquer pessoa pode se inscrever na partida' :
+                'Apenas pessoas convidadas podem participar';
+        }
 
-        publicaLabel.parentNode.appendChild(privadaLabel);
+        atualizarDescricao();
 
-        // Atualizar descrição baseada na seleção
-        document.addEventListener('change', function(e) {
-            if (e.target.name === 'tipo') {
-                if (e.target.value === 'publica') {
-                    tipoDescricao.textContent = 'Qualquer pessoa pode se inscrever na partida';
-                } else {
-                    tipoDescricao.textContent = 'Apenas pessoas convidadas podem participar';
-                }
+        toggle.addEventListener('change', atualizarDescricao);
+
+
+        // Validação de data e hora apenas à partir da atual
+        const dataInput = document.getElementById('data');
+        if (dataInput) {
+            // Data e hora atual em formato YYYY-MM-DDTHH:MM
+            const agora = new Date();
+            const pad = num => String(num).padStart(2, '0');
+            const dataMin = agora.getFullYear() + '-' +
+                pad(agora.getMonth() + 1) + '-' +
+                pad(agora.getDate()) + 'T' +
+                pad(agora.getHours()) + ':' +
+                pad(agora.getMinutes());
+
+            dataInput.min = dataMin;
+
+            // Se não tiver valor (nova partida), coloca o valor atual
+            if (!dataInput.value) {
+                dataInput.value = dataMin;
             }
-        });
-
-        // Definir data mínima como hoje
-        const hoje = new Date().toISOString().split('T')[0];
-        document.getElementById('data').min = hoje;
-        document.getElementById('data').value = hoje;
-
-        // Validação do formulário
-        document.getElementById('criarPartidaForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            const horarioInicio = document.getElementById('horario-inicio').value;
-            const horarioFim = document.getElementById('horario-fim').value;
-
-            if (horarioInicio >= horarioFim) {
-                alert('O horário de fim deve ser posterior ao horário de início!');
-                return;
-            }
-
-            // Simular criação da partida
-            alert('Partida criada com sucesso!');
-            window.location.href = "{{ route('index') }}";
-        });
+        }
     </script>
 @endpush

@@ -13,7 +13,7 @@ return new class extends Migration
             $table->integer('quantPessoas');
             $table->integer('quantEspera');
             $table->float('valor');
-            $table->enum('modalidade', ['basquete', 'futsal', 'volei', 'beach_tenis']);
+            $table->enum('modalidade', ['basquete', 'futsal', 'volei', 'beach_tenis', 'outros']);
             $table->enum('tipo', ['publica', 'privada'])->default('publica');
             
             // Relacionamentos

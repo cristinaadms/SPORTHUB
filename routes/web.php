@@ -24,7 +24,7 @@ Route::middleware(AdminMiddleware::class)->group(function () {
 // Rotas para usuários logados (qualquer papel)
 Route::middleware(Authenticated::class)->group(function () {
     Route::get('/', [PartidaController::class, 'index'])->name('index');
-    Route::get('/minhas-partidas', [PartidaController::class, 'index'])->name('minhas-partidas');
+    Route::get('/minhas-partidas', [PartidaController::class, 'minhasPartidas'])->name('minhas-partidas');
     Route::get('/perfil', [UserController::class, 'show'])->name('perfil');
     Route::resource('local', LocalController::class)->only(['index', 'show']);
     Route::resource('partidas', PartidaController::class);

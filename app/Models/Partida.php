@@ -10,6 +10,8 @@ class Partida extends Model
     use HasFactory;
 
     protected $fillable = [
+        'nome',
+        'descricao',
         'data',
         'quantPessoas',
         'quantEspera',
@@ -21,7 +23,7 @@ class Partida extends Model
     ];
 
     protected $casts = [
-        'data' => 'date',
+        'data' => 'datetime',
         'valor' => 'float',
     ];
 
@@ -83,19 +85,19 @@ class Partida extends Model
     public function buscarPartida($filtros)
     {
         $query = self::query();
-        
+
         if (isset($filtros['modalidade'])) {
             $query->where('modalidade', $filtros['modalidade']);
         }
-        
+
         if (isset($filtros['data'])) {
             $query->whereDate('data', $filtros['data']);
         }
-        
+
         if (isset($filtros['tipo'])) {
             $query->where('tipo', $filtros['tipo']);
         }
-        
+
         return $query->get();
     }
 
@@ -107,7 +109,7 @@ class Partida extends Model
     public function aceitarPedido($userId)
     {
         $participantesConfirmados = $this->participantesConfirmados()->count();
-        
+
         if ($participantesConfirmados < $this->quantPessoas) {
             return $this->participantes()->updateExistingPivot($userId, ['status' => 'confirmado']);
         } else {
@@ -143,5 +145,33 @@ class Partida extends Model
     public function temVagas()
     {
         return $this->participantesConfirmados()->count() < $this->quantPessoas;
+    }
+
+    public function getDataFormatada()
+    {
+        return $this->data ? $this->data->format('d/m/Y H:i') : null;
+    }
+
+    public function getDiaFormatado()
+    {
+        return $this->data ? $this->data->format('d/m/Y') : null;
+    }
+
+    public function getHoraFormatada()
+    {
+        return $this->data ? $this->data->format('H:i') : null;
+    }
+
+    public function participantesFormatados()
+    {
+        return $this->participantes->map(function ($user) {
+            return [
+                'nome' => $user->name,
+                'cargo' => $user->id === auth()->id() ? 'Você' : null,
+                'organizador' => $user->id === $this->criador_id,
+                'status' => $user->pivot->status,
+                'cor' => $user->id === $this->criador_id ? 'blue' : 'green',
+            ];
+        });
     }
 }

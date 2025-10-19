@@ -7,6 +7,7 @@
     <title>@yield('title', 'SportHub')</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script>
         tailwind.config = {
             theme: {
@@ -31,16 +32,32 @@
     <!-- Container para alerts -->
     <div class="max-w-md mx-auto mt-6">
         {{-- Erros de validação --}}
-        @if ($errors->any())
-            <x-alert type="error" dismissible>
-                <p class="font-semibold mb-1">Por favor, corrija os seguintes erros:</p>
-                <ul class="list-disc list-inside">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </x-alert>
-        @endif
+        <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md px-4 space-y-2">
+            {{-- Erros de validação --}}
+            @if ($errors->any())
+                <x-alert type="error" dismissible>
+                    <p class="font-semibold mb-1">Por favor, corrija os seguintes erros:</p>
+                    <ul class="list-disc list-inside">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </x-alert>
+            @endif
+
+            {{-- Mensagens de sessão --}}
+            @if (session('success'))
+                <x-alert type="success" dismissible>
+                    {{ session('success') }}
+                </x-alert>
+            @endif
+
+            @if (session('error'))
+                <x-alert type="error" dismissible>
+                    {{ session('error') }}
+                </x-alert>
+            @endif
+        </div>
 
 
         {{-- Mensagens de sessão --}}
