@@ -21,7 +21,7 @@
             </div>
 
             <div class="text-sm">
-                <a href="#" class="font-medium text-blue-primary hover:text-blue-hover transition-colors">
+                <a href="{{ route('password.request') }}" class="font-medium text-blue-primary hover:text-blue-hover transition-colors">
                     Esqueceu a senha?
                 </a>
             </div>
