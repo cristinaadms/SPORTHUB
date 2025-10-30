@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@props(['tipo', 'titulo', 'local', 'horario', 'vagas' => null, 'status', 'url'])
+
 @section('title', 'SportHub - Dashboard')
 
 @section('content')
@@ -22,7 +24,24 @@
                 <h2 class="text-lg font-semibold text-gray-900">Próximas partidas</h2>
                 <a href="#" class="text-blue-primary text-sm font-medium hover:text-blue-hover transition-colors">Ver
                     todas</a>
-            </div>
+            </div> 
+
+            <!-- Cards horizontais -->
+            <!-- <div class="space-y-3">
+                @forelse ($proximasPartidas as $partida)
+                    <x-partida-card 
+                        :tipo="$partida->tipo"
+                        :titulo="$partida->modalidade"
+                        :local="$partida->local->nome"
+                        :horario="$partida->getDataFormatada()"
+                        :vagas="$partida->quantPessoas - $partida->participantesConfirmados()->count()"
+                        status="{{ $partida->temVagas() ? 'disponível' : 'lotado' }}" 
+                        url="{{ route('partidas.show', $partida->id) }}" />
+
+                @empty 
+                    <p class="text-gray-500 text-sm">Nenhuma partida diponível no momento.</p>
+                @endforelse
+            </div> -->
 
             <!-- Cards horizontais -->
             <div class="space-y-3">
@@ -38,6 +57,29 @@
 
             </div>
         </section>
+
+        <!-- Seção Minhas partidas -->
+        <!-- <section>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold text-gray-900">Minhas partidas</h2>
+                <a href="#" class="text-blue-primary text-sm font-medium hover:text-blue-hover transition-colors">Ver
+                    todas</a>
+            </div> -->
+
+            <!-- Cards verticais -->
+            <!-- <div class="grid grid-cols-2 gap-3">
+                @forelse($minhasPartidas as $partida)
+                    <x-partida-card-vertical 
+                        :status="$partida->pivot->status ?? 'pendente'" 
+                        :titulo="$partida->modalidade" 
+                        :local="$partida->local->nome"
+                        :horario="$partida->getDataFormatada()" 
+                        url="{{ route('partidas.show', $partida->id) }}" />
+                @empty
+                    <p class="text-gray-500 text-sm col-span-2">Você ainda não participa de nenhuma partida.</p>
+                @endforelse
+            </div> 
+        </section> -->
 
         <!-- Seção Minhas partidas -->
         <section>

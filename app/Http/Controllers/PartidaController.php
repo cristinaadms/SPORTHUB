@@ -31,15 +31,32 @@ class PartidaController extends Controller
     // Lista de partidas já carregada no index
     public function index(Request $request)
     {
-        // Exemplo: se existir o parâmetro "minhas" na query string
-        if ($request->has('minhas') && $request->query('minhas') == '1') {
-            // Futuramente aqui você pode filtrar as partidas do usuário logado
-            return view('minhas-partidas');
-        }
+        // // Exemplo: se existir o parâmetro "minhas" na query string
+        // if ($request->has('minhas') && $request->query('minhas') == '1') {
+        //     // Futuramente aqui você pode filtrar as partidas do usuário logado
+        //     return view('minhas-partidas');
+        // }
 
-        $partidas = Partida::with('local', 'criador')->get();
+        // $partidas = Partida::with('local', 'criador')->get();
 
-        return view('index', compact('partidas'));
+        // return view('index', compact('partidas'));
+
+        $user = Auth::user();
+
+        // Carregar partidas futuras
+        $proximasPartidas = Partida::with('local', 'criador')
+            ->where('data', '>=', now()) 
+            ->orderBy('data', 'asc')
+            ->get();
+
+        // Carregar partidas em que o usuário participa
+        $minhasPartidas = $user->partidas()
+            ->with('local')
+            ->where('data', '>=', now()) 
+            ->orderBy('data', 'asc')
+            ->get();
+
+        return view('index', compact('proximasPartidas', 'minhasPartidas'));
     }
 
     public function minhasPartidas()
