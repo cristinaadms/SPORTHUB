@@ -34,4 +34,8 @@ Route::middleware(Authenticated::class)->group(function () {
     Route::get('/perfil', [UserController::class, 'show'])->name('perfil');
     Route::resource('local', LocalController::class)->only(['index', 'show']);
     Route::resource('partidas', PartidaController::class);
+    // rotas de interação com as partidas
+    Route::post('/partidas/{partida}/entrar', [PartidaController::class, 'entrar'])->name('partidas.entrar');
+    Route::post('/partidas/{partida}/sair', [PartidaController::class, 'sair'])->name('partidas.sair');
+    Route::post('/partidas/{partida}/cancelar', [PartidaController::class, 'cancelarSolicitacao'])->name('partidas.cancelar');
 });

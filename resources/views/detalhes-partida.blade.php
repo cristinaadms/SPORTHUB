@@ -29,6 +29,10 @@
             ];
         })" />
 
-        <x-partida-actions />
+        <x-partida-actions 
+            :partida="$partida"
+            :statusUsuario="$statusUsuario"
+            :ehOrganizador="$partida->criador_id === Auth::id()"
+        />
     </main>
 @endsection
