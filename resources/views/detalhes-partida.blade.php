@@ -29,6 +29,6 @@
             ];
         })" />
 
-        <x-partida-actions />
+        <x-partida-actions :partida="$partida" />
     </main>
 @endsection

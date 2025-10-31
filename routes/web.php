@@ -34,4 +34,5 @@ Route::middleware(Authenticated::class)->group(function () {
     Route::get('/perfil', [UserController::class, 'show'])->name('perfil');
     Route::resource('local', LocalController::class)->only(['index', 'show']);
     Route::resource('partidas', PartidaController::class);
+    Route::get('/partidas/{partida}/chat', [PartidaController::class, 'chat'])->name('partidas.chat');
 });
