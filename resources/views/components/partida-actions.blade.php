@@ -22,7 +22,7 @@
              <button
                 disabled
                 class="bg-gray-100 text-gray-400 font-semibold py-3 px-4 rounded-xl cursor-not-allowed flex items-center justify-center space-x-2">
-                <x-dynamic-component :component="'icons.user'" class="w-5 h-5" />
+                <x-dynamic-component :component="'icons.users'" class="w-5 h-5" />
                 <span>Organizador</span>
             </button>
         @elseif ($statusUsuario === 'disponivel')

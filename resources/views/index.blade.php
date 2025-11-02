@@ -30,6 +30,7 @@
             <div class="space-y-3">
                 @forelse ($proximasPartidas as $partida)
                     <x-partida-card 
+                        :id="$partida->id"
                         :tipo="$partida->tipo"
                         :titulo="$partida->modalidade"
                         :local="$partida->local->nome"

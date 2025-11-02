@@ -75,12 +75,22 @@
 
         <div class="mt-2 flex flex-col space-y-2 items-end">
             <!-- Botão principal -->
-            <button
-                @if (!$isDisabled) onclick="{{ $buttonAction ?? "window.location.href='$url'" }}" @endif
-                {{ $isDisabled ? 'disabled' : '' }}
-                class="{{ $currentButton['class'] }} px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
-                {{ $currentButton['text'] }}
-            </button>
+            @if (!$isDisabled && in_array($currentButton['text'], ['Entrar', 'Pedir acesso']))
+                <form method="POST" action="{{ route('partida.entrar', $id) }}"> 
+                    @csrf 
+                    <button type="submit"
+                        class="{{ $currentButton['class'] }} px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
+                        {{ $currentButton['text'] }} 
+                    </button>
+                </form>
+            @else 
+                <button 
+                    @if (!$isDisabled) onclick="{{ $buttonAction ?? "window.location.href='$url'" }}" @endif
+                    {{ $isDisabled ? 'disabled' : '' }}
+                    class="{{ $currentButton['class'] }} px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
+                    {{ $currentButton['text'] }}
+                </button>
+            @endif
 
             <!-- Botão de edição (apenas para organizador) -->
             @if ($organizador)
