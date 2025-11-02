@@ -146,5 +146,62 @@ class PartidaController extends Controller
         }
 
         return view('chat-partida', compact('partida'));
+
+    // Métodos de interação com a partida
+
+    public function entrar(Partida $partida) 
+    {
+        $user = Auth::user();
+
+        // Impede organizador de entrar (por segurança)
+        if ($partida->criador_id === $user->id) {
+            return back()->with('info', 'Você é o organizador desta partida!');
+        }
+
+        // Se o usuário que já participa
+        if ($partida->participantes()->where('user_id', $user->id)->exists()) {
+            return back()->with('info', 'Você já está nesta partida!');
+        }
+
+        // Verifica se a partida já atingiu o limite de pessoas confirmadas
+        if ($partida->participantesConfirmados()->count() >= $partida->quantPessoas) {
+            return back()->with('info', 'A partida já está cheia!');
+        }
+
+        // Se pública, entra direto
+        if ($partida->tipo === 'publica') {
+            $partida->participantes()->attach($user->id, ['status' => 'confirmado']);
+            return back()->with('success', 'Você entrou na partida!');
+        }
+
+        // Se privada, envia solicitação
+        $partida->participantes()->attach($user->id, ['status' => 'pendente']);
+        return back()->with('info', 'Solicitação enviada ao organizador.');
+    }
+
+    public function sair(Partida $partida)
+    {
+        $user = Auth::user();
+
+        // Impede o organizador de sair da partida (Precaução)
+            //Obs.: possível erro em: criador_id
+        if ($partida->criador_id === $user->id) {
+            return back()->with('info', 'O organizador não pode sair da própria partida!');
+        }
+
+        $partida->participantes()->detach($user->id);
+
+        return back()->with('success', 'Você saiu da partida.');
+    }
+
+    public function cancelarSolicitacao(Partida $partida)
+    {
+        $user = Auth::user();
+
+        $partida->participantes()
+            ->wherePivot('status', 'pendente')
+            ->detach($user->id);
+
+        return back()->with('info', 'Solicitação cancelada.');
     }
 }
