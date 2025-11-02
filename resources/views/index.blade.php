@@ -27,9 +27,10 @@
             </div> 
 
             <!-- Cards horizontais -->
-            <!-- <div class="space-y-3">
+            <div class="space-y-3">
                 @forelse ($proximasPartidas as $partida)
                     <x-partida-card 
+                        :id="$partida->id"
                         :tipo="$partida->tipo"
                         :titulo="$partida->modalidade"
                         :local="$partida->local->nome"
@@ -41,33 +42,19 @@
                 @empty 
                     <p class="text-gray-500 text-sm">Nenhuma partida diponível no momento.</p>
                 @endforelse
-            </div> -->
-
-            <!-- Cards horizontais -->
-            <div class="space-y-3">
-
-                <x-partida-card tipo="publica" titulo="Futebol Society" local="Arena Sports Center" horario="Hoje, 19:00"
-                    :vagas="2" status="disponivel" url="{{ route('partidas.show', [1]) }}" />
-
-                <x-partida-card tipo="privada" titulo="Basquete 3x3" local="Quadra do Parque" horario="Amanhã, 16:30"
-                    :vagas="1" status="disponivel" url="{{ route('partidas.show', [2]) }}" />
-
-                <x-partida-card tipo="publica" titulo="Vôlei de Praia" local="Praia de Copacabana" horario="Sábado, 08:00"
-                    :vagas="5" status="disponivel" url="{{ route('partidas.show', [4]) }}" />
-
             </div>
         </section>
 
         <!-- Seção Minhas partidas -->
-        <!-- <section>
+        <section>
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-semibold text-gray-900">Minhas partidas</h2>
                 <a href="#" class="text-blue-primary text-sm font-medium hover:text-blue-hover transition-colors">Ver
                     todas</a>
-            </div> -->
+            </div> 
 
             <!-- Cards verticais -->
-            <!-- <div class="grid grid-cols-2 gap-3">
+            <div class="grid grid-cols-2 gap-3">
                 @forelse($minhasPartidas as $partida)
                     <x-partida-card-vertical 
                         :status="$partida->pivot->status ?? 'pendente'" 
@@ -79,28 +66,6 @@
                     <p class="text-gray-500 text-sm col-span-2">Você ainda não participa de nenhuma partida.</p>
                 @endforelse
             </div> 
-        </section> -->
-
-        <!-- Seção Minhas partidas -->
-        <section>
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-lg font-semibold text-gray-900">Minhas partidas</h2>
-                <a href="#" class="text-blue-primary text-sm font-medium hover:text-blue-hover transition-colors">Ver
-                    todas</a>
-            </div>
-
-            <!-- Cards verticais -->
-            <div class="grid grid-cols-2 gap-3">
-
-                <!-- Card 1 - Confirmado -->
-                <x-partida-card-vertical status="confirmado" titulo="Futebol Society" local="Arena Sports"
-                    horario="Hoje, 19:00" url="{{ route('partidas.show', [1]) }}" />
-
-                <!-- Card 2 - Pendente -->
-                <x-partida-card-vertical status="pendente" titulo="Tênis Duplas" local="Clube Tênis" horario="Quinta, 18:00"
-                    url="{{ route('partidas.show', [2]) }}" />
-
-            </div>
         </section>
     </main>
 @endsection
