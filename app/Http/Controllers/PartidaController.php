@@ -132,6 +132,20 @@ class PartidaController extends Controller
         return redirect()->route('minhas-partidas')->with('success', 'Partida removida com sucesso!');
     }
 
+    public function chat(Partida $partida)
+    {
+        // Verificar se o usuário está participando da partida
+        $user = Auth::user();
+        
+        $isParticipating = $partida->participantes()->where('user_id', $user->id)->exists() 
+                         || $partida->criador_id === $user->id;
+        
+        if (!$isParticipating) {
+            return redirect()->route('partidas.show', $partida)
+                           ->with('error', 'Você precisa estar participando da partida para acessar o chat.');
+        }
+
+        return view('chat-partida', compact('partida'));
 
     // Métodos de interação com a partida
 
