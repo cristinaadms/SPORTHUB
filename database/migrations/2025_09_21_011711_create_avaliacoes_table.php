@@ -11,7 +11,7 @@ return new class extends Migration
             $table->id();
             $table->float('estrelas'); // 1 a 5
             $table->text('feedback')->nullable();
-            $table->enum('tipo', ['usuario', 'local']);
+            $table->enum('tipo', ['partida', 'local']);
             
             // Relacionamentos
             $table->foreignId('avaliador_id')->constrained('users')->onDelete('cascade');

@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\LocalController;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AvaliacaoController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\Authenticated;
 use App\Http\Controllers\Auth\PasswordResetController; 
@@ -39,4 +40,8 @@ Route::middleware(Authenticated::class)->group(function () {
     Route::post('/partidas/{partida}/entrar', [PartidaController::class, 'entrar'])->name('partidas.entrar');
     Route::post('/partidas/{partida}/sair', [PartidaController::class, 'sair'])->name('partidas.sair');
     Route::post('/partidas/{partida}/cancelar', [PartidaController::class, 'cancelarSolicitacao'])->name('partidas.cancelar');
+    // Avaliações
+    Route::post('/avaliacoes', [AvaliacaoController::class, 'store'])->name('avaliacoes.store');
+
+
 });

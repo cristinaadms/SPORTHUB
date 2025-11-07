@@ -146,6 +146,7 @@ class PartidaController extends Controller
         }
 
         return view('chat-partida', compact('partida'));
+    }
 
     // Métodos de interação com a partida
 
