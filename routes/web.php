@@ -30,6 +30,7 @@ Route::middleware(AdminMiddleware::class)->group(function () {
 
 // Rotas para usuários logados (qualquer papel)
 Route::middleware(Authenticated::class)->group(function () {
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/', [PartidaController::class, 'index'])->name('index');
     Route::get('/minhas-partidas', [PartidaController::class, 'minhasPartidas'])->name('minhas-partidas');
     Route::get('/perfil', [UserController::class, 'show'])->name('perfil.show');
