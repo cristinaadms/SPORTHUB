@@ -43,23 +43,33 @@ class UserController extends Controller
         return view('perfil', compact('user', 'partidas', 'organizadas'));
     }
 
-    public function update(Request $request, User $user)
+    public function edit()
     {
+        $user = Auth::user();
+
+        return view('perfil.editar', compact('user'));
+    }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user(); // usuário logado
+
         $dados = $request->validate([
             'name' => 'sometimes|string',
             'email' => 'sometimes|email|unique:users,email,'.$user->id,
-            'telefone' => 'nullable|string',
+            'telefone' => 'nullable|string|unique:users,telefone',
             'password' => 'nullable|min:6',
-            'role' => 'in:user,admin',
         ]);
 
-        if (isset($dados['password'])) {
+        if (!empty($dados['password'])) {
             $dados['password'] = Hash::make($dados['password']);
+        } else {
+            unset($dados['password']); // não sobrescreve se estiver vazio
         }
 
         $user->update($dados);
 
-        return $user;
+        return redirect()->route('perfil')->with('success', 'Perfil atualizado com sucesso!');
     }
 
     public function destroy(User $user)

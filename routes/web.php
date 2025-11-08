@@ -33,7 +33,9 @@ Route::middleware(Authenticated::class)->group(function () {
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/', [PartidaController::class, 'index'])->name('index');
     Route::get('/minhas-partidas', [PartidaController::class, 'minhasPartidas'])->name('minhas-partidas');
-    Route::get('/perfil', [UserController::class, 'show'])->name('perfil.show');
+    Route::get('/perfil', [UserController::class, 'show'])->name('perfil');
+    Route::get('/perfil/editar', [UserController::class, 'edit'])->name('perfil.edit');
+    Route::patch('/perfil', [UserController::class, 'update'])->name('perfil.update');
     Route::resource('local', LocalController::class)->only(['index', 'show']);
     Route::resource('partidas', PartidaController::class);
     Route::get('/partidas/{partida}/chat', [PartidaController::class, 'chat'])->name('partidas.chat');

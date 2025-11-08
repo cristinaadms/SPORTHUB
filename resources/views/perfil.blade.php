@@ -33,14 +33,10 @@
                         <span class="text-sm text-gray-secondary ml-1">({{ $user->avaliacoes_count }} avaliações)</span>
                     </div>
                 </div>
-                <button
-                    class="bg-blue-primary hover:bg-blue-hover text-white px-4 py-2 rounded-xl font-semibold text-sm transition-colors">
-                    Editar
-                </button>
             </div>
 
             <!-- Estatísticas -->
-            <div class="grid grid-cols-3 gap-4 pt-4 border-t border-gray-200">
+            <div class="grid grid-cols-2 gap-4 pt-4 border-t border-gray-200">
                 <div class="text-center">
                     <p class="text-2xl font-bold text-blue-primary">{{ $partidas }}</p>
                     <p class="text-sm text-gray-secondary">Partidas</p>
@@ -55,7 +51,8 @@
         <!-- Menu de opções -->
         <div class="bg-white rounded-2xl shadow-md overflow-hidden">
             <div class="divide-y divide-gray-200">
-                <button class="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors">
+                <a href="{{ route('perfil.edit') }}"
+                    class="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors bg-white rounded-xl">
                     <div class="flex items-center space-x-3">
                         <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -66,7 +63,7 @@
                     <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
-                </button>
+                </a>
 
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
