@@ -27,7 +27,7 @@
         </a>
 
         <a href="{{ route('local.index') }}"
-            class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('locais.index') || request()->routeIs('locais.show') ? 'text-green-600' : 'text-gray-400 hover:text-green-600' }}">
+            class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('local.index') || request()->routeIs('local.show') ? 'text-green-600' : 'text-gray-400 hover:text-green-600' }}">
             <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -50,7 +50,7 @@
             -->
 
             <a href="{{ route('local.create') }}"
-                class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('locais.create') ? 'text-blue-primary' : 'text-gray-400 hover:text-blue-primary' }}">
+                class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('local.create') ? 'text-blue-primary' : 'text-gray-400 hover:text-blue-primary' }}">
                 <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
