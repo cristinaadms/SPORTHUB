@@ -3,52 +3,35 @@
 @section('title', 'SportHub - Locais')
 
 @section('content')
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-40">
-        <div class="px-4 py-4">
-            <div class="flex items-center justify-between mb-4">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-green-600 rounded-xl p-2">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+    <x-header title="Locais Esportivos">
+        <!-- Slot para o botão de ação -->
+        <x-slot name="actionButton">
+            @if (Auth::user() && Auth::user()->isAdmin())
+                <div class="flex space-x-2">
+                    <a href="{{ route('local.create') }}"
+                        class="bg-blue-primary hover:bg-blue-hover text-white px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
+                        <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                         </svg>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-bold text-gray-900">Locais Esportivos</h1>
-                        <p class="text-sm text-gray-secondary">
-                            Encontre o local perfeito para sua partida
-                        </p>
-                    </div>
+                        Novo Local
+                    </a>
                 </div>
-                @if (Auth::user() && Auth::user()->isAdmin())
-                    <div class="flex space-x-2">
-                        <a href="{{ route('local.create') }}"
-                            class="bg-blue-primary hover:bg-blue-hover text-white px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
-                            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                            </svg>
-                            Novo Local
-                        </a>
-                    </div>
-                @endif
-            </div>
+            @endif
+        </x-slot>
 
-            <!-- Barra de busca -->
-            <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </div>
-                <input type="text" id="buscarLocal" placeholder="Buscar locais por nome"
-                    class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-primary focus:border-blue-primary sm:text-sm transition-colors">
+
+        <!-- Barra de busca -->
+        <div class="relative mt-4">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
             </div>
+            <input type="text" id="buscarLocal" placeholder="Buscar locais por nome"
+                class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-primary focus:border-blue-primary sm:text-sm transition-colors">
         </div>
-    </header>
+    </x-header>
 
     <!-- Conteúdo principal -->
     <main class="px-4 py-6 space-y-6">

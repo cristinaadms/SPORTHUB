@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Password;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
 
     protected $fillable = [
         'name',
@@ -40,6 +41,7 @@ class User extends Authenticatable
     public function cadastrar(array $dados)
     {
         $dados['password'] = Hash::make($dados['password']);
+
         return self::create($dados);
     }
 
@@ -48,6 +50,7 @@ class User extends Authenticatable
         if (isset($dados['password'])) {
             $dados['password'] = Hash::make($dados['password']);
         }
+
         return $this->update($dados);
     }
 
@@ -56,6 +59,7 @@ class User extends Authenticatable
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             return Auth::user();
         }
+
         return null;
     }
 
@@ -93,6 +97,22 @@ class User extends Authenticatable
     public function avaliacoesRecebidas()
     {
         return $this->hasMany(Avaliacao::class, 'avaliado_id');
+    }
+
+    /* ==========================
+       Accessors / Atributos dinâmicos
+    ===========================*/
+
+    // Retorna a nota média do usuário
+    public function getNotaAttribute()
+    {
+        return round($this->avaliacoesRecebidas()->avg('estrelas') ?? 0, 1);
+    }
+
+    // Retorna o número de avaliações recebidas
+    public function getAvaliacoesCountAttribute()
+    {
+        return $this->avaliacoesRecebidas()->count();
     }
 
     /* ==========================

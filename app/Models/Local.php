@@ -49,4 +49,14 @@ class Local extends Model
     {
         return $this->avaliacoes()->where('tipo', 'local')->avg('estrelas') ?: 0;
     }
+
+    public function getImagemAttribute($value)
+    {
+        // Se vier como stream, converte para string
+        if (is_resource($value)) {
+            return stream_get_contents($value);
+        }
+
+        return $value;
+    }
 }
