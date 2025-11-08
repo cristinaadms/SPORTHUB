@@ -1,14 +1,14 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\NewPasswordResetController;
+use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\LocalController;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AvaliacaoController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\Authenticated;
-use App\Http\Controllers\Auth\PasswordResetController; 
-use App\Http\Controllers\Auth\NewPasswordResetController;
 use Illuminate\Support\Facades\Route;
 
 // Rotas de autenticação
@@ -32,7 +32,7 @@ Route::middleware(AdminMiddleware::class)->group(function () {
 Route::middleware(Authenticated::class)->group(function () {
     Route::get('/', [PartidaController::class, 'index'])->name('index');
     Route::get('/minhas-partidas', [PartidaController::class, 'minhasPartidas'])->name('minhas-partidas');
-    Route::get('/perfil', [UserController::class, 'show'])->name('perfil');
+    Route::get('/perfil', [UserController::class, 'show'])->name('perfil.show');
     Route::resource('local', LocalController::class)->only(['index', 'show']);
     Route::resource('partidas', PartidaController::class);
     Route::get('/partidas/{partida}/chat', [PartidaController::class, 'chat'])->name('partidas.chat');
@@ -42,6 +42,4 @@ Route::middleware(Authenticated::class)->group(function () {
     Route::post('/partidas/{partida}/cancelar', [PartidaController::class, 'cancelarSolicitacao'])->name('partidas.cancelar');
     // Avaliações
     Route::post('/avaliacoes', [AvaliacaoController::class, 'store'])->name('avaliacoes.store');
-
-
 });
