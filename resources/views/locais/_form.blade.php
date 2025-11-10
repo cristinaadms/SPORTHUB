@@ -40,8 +40,9 @@
         @if (isset($local) && $local->imagem)
             <div class="mt-3">
                 <p class="text-sm font-medium text-gray-700 mb-2">Imagem atual:</p>
-                <img src="data:image/jpeg;base64,{{ base64_encode($local->imagem) }}"
-                    class="w-full h-48 object-cover rounded-xl">
+                <img src="{{ $local->imagem }}" alt="Imagem do local"
+                    class="w-full h-48 object-cover rounded-xl rounded-lg shadow-md">
+
             </div>
         @endif
 

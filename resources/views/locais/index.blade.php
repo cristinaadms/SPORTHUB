@@ -126,8 +126,7 @@
                         <!-- Imagem ou placeholder -->
                         <div class="relative h-48 bg-gray-100 rounded-t-2xl overflow-hidden">
                             @if ($local->imagem)
-                                <img src="data:image/jpeg;base64,{{ base64_encode($local->imagem) }}"
-                                    alt="{{ $local->nome }}" class="w-full h-full object-cover">
+                                <img src="{{ $local->imagem }}" alt="{{ $local->nome }}" class="w-full h-full object-cover">
                                 <div class="absolute top-2 right-2">
                                     <span
                                         class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
