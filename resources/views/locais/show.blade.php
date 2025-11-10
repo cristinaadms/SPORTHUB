@@ -288,7 +288,7 @@
                             </svg>
                             Editar Local
                         </a>
-                        <a href="{{ Auth::user()->isAdmin() ? route('admin.index') : route('local.index') }}"
+                        <a href="{{ route('local.index') }}"
                             class="flex-1 px-4 py-3 border border-gray-300 text-gray-700 font-semibold rounded-xl hover:bg-gray-50 transition-colors text-center">
                             <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

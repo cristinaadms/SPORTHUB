@@ -9,9 +9,7 @@
     $usuario = Auth::user();
 
     // true se NÃO avaliou ainda
-    $naoAvaliou = $partida->avaliacoes
-        ->where('avaliador_id', $usuario->id)
-        ->isEmpty();
+    $naoAvaliou = $partida->avaliacoes->where('avaliador_id', $usuario->id)->isEmpty();
 @endphp
 
 <div class="space-y-3">
@@ -32,77 +30,74 @@
 
         {{-- ORGANIZADOR --}}
         @if ($ehOrganizador)
-            <button
-                disabled
+            <button disabled
                 class="bg-gray-100 text-gray-400 font-semibold py-3 px-4 rounded-xl cursor-not-allowed flex items-center justify-center space-x-2">
                 <x-dynamic-component :component="'icons.users'" class="w-5 h-5" />
                 <span>Organizador</span>
             </button>
 
-        {{-- USUÁRIO DISPONÍVEL --}}
+            {{-- USUÁRIO DISPONÍVEL --}}
         @elseif ($statusUsuario === 'disponivel')
-            @if ($partida->tipo === 'publica')
+            @if ($partidaEncerrada)
+                <button disabled
+                    class="w-full py-3 bg-blue-primary text-white font-semibold rounded-xl hover:bg-blue-hover transition-colors">
+                    Partida encerrada
+                </button>
+            @elseif ($partida->tipo === 'publica')
                 <form action="{{ route('partidas.entrar', $partida->id) }}" method="POST" class="col-span-2">
-                    @csrf 
+                    @csrf
                     <button type="submit"
                         class="w-full py-3 bg-blue-primary text-white font-semibold rounded-xl hover:bg-blue-hover transition-colors">
                         Entrar na Partida
-                    </button> 
-                </form> 
+                    </button>
+                </form>
             @else
                 <form action="{{ route('partidas.entrar', $partida->id) }}" method="POST" class="col-span-2">
-                    @csrf 
+                    @csrf
                     <button type="submit"
                         class="w-full py-3 bg-blue-primary text-white font-semibold rounded-xl hover:bg-blue-hover transition-colors">
-                        Solicitar acesso 
-                    </button> 
+                        Solicitar acesso
+                    </button>
                 </form>
             @endif
 
-        {{-- SOLICITAÇÃO PENDENTE --}}
+            {{-- SOLICITAÇÃO PENDENTE --}}
         @elseif ($statusUsuario === 'pendente')
             <form action="{{ route('partidas.cancelar', $partida->id) }}" method="POST" class="col-span-2">
-                @csrf 
+                @csrf
                 <button type="submit"
                     class="w-full py-3 bg-gray-400 text-white font-semibold rounded-xl hover:bg-gray-500 transition-colors">
-                    Cancelar Solicitação 
-                </button> 
+                    Cancelar Solicitação
+                </button>
             </form>
 
-        {{-- CONFIRMADO --}}
+            {{-- CONFIRMADO --}}
         @elseif ($statusUsuario === 'confirmado')
             {{-- Se já passou e não avaliou → mostramos o botão "Avaliar" (no lugar do Sair? NÃO, mostramos adicionalmente) --}}
-            @if ($partidaEncerrada && $naoAvaliou)
+            @if (!$partidaEncerrada)
                 {{-- Mantemos o botão Sair e também mostramos o botão Avaliar abaixo; para manter layout, colocamos Avaliar em col-span-2 --}}
                 <form action="{{ route('partidas.sair', $partida->id) }}" method="POST" class="col-span-2">
-                    @csrf 
+                    @csrf
                     <button type="submit"
                         class="w-full py-3 bg-red-500 text-white font-semibold rounded-xl hover:bg-red-600 transition-colors">
-                        Sair da Partida 
-                    </button> 
+                        Sair da Partida
+                    </button>
                 </form>
-
+            @elseif ($naoAvaliou)
                 {{-- Botão que abre o modal --}}
-                <button
-                    onclick="window.dispatchEvent(new CustomEvent('abrir-modal-avaliar'))"
+                <button onclick="window.dispatchEvent(new CustomEvent('abrir-modal-avaliar'))"
                     class="w-full py-3 bg-yellow-500 text-white font-semibold rounded-xl hover:bg-yellow-600 transition-colors flex items-center justify-center gap-2">
                     Avaliar Partida
                 </button>
-
             @else
-
             @endif
         @endif
     </div>
 
     {{-- Modal de avaliação --}}
-    @if ($statusUsuario === 'confirmado' && $partidaEncerrada && $naoAvaliou && ! $ehOrganizador)
-        <div x-data="{ open: false, rating: 0 }"
-            x-cloak
-            x-init="
-                window.addEventListener('abrir-modal-avaliar', () => { open = true; });
-                window.addEventListener('fechar-modal-avaliar', () => { open = false; });
-            ">
+    @if ($statusUsuario === 'confirmado' && $partidaEncerrada && $naoAvaliou && !$ehOrganizador)
+        <div x-data="{ open: false, rating: 0 }" x-cloak x-init="window.addEventListener('abrir-modal-avaliar', () => { open = true; });
+        window.addEventListener('fechar-modal-avaliar', () => { open = false; });">
             <div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center">
                 <div class="fixed inset-0 bg-black/40 transition-opacity" @click="open = false"></div>
 
@@ -132,8 +127,7 @@
                             Enviar Avaliação
                         </button>
 
-                        <button type="button" @click="open = false"
-                            class="w-full py-3 mt-2 bg-gray-200 rounded-xl">
+                        <button type="button" @click="open = false" class="w-full py-3 mt-2 bg-gray-200 rounded-xl">
                             Cancelar
                         </button>
                     </form>
