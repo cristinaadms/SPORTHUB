@@ -66,6 +66,11 @@ class Partida extends Model
         return $this->hasMany(Avaliacao::class);
     }
 
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
     // Métodos auxiliares
     public function criarPartida($dados)
     {

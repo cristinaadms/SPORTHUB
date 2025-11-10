@@ -99,6 +99,11 @@ class User extends Authenticatable
         return $this->hasMany(Avaliacao::class, 'avaliado_id');
     }
 
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
     /* ==========================
        Accessors / Atributos dinâmicos
     ===========================*/

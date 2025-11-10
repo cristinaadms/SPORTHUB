@@ -58,7 +58,7 @@
             </a>
         @endif
 
-        <a href="{{ route('perfil.show') }}"
+        <a href="{{ route('perfil') }}"
             class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('perfil') ? 'text-blue-primary' : 'text-gray-400 hover:text-blue-primary' }}">
             <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
