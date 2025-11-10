@@ -14,50 +14,58 @@
     </x-header>
 
     <!-- Container principal do chat -->
-    <div class="flex flex-col h-[calc(100vh-140px)]" x-data="chatPartida()">
+    <div class="flex flex-col h-[calc(100vh-140px)]" x-data="chatPartida({
+        messagesIndexUrl: '{{ route('partidas.chat.messages.index', $partida) }}',
+        messagesStoreUrl: '{{ route('partidas.chat.messages.store', $partida) }}',
+        csrfToken: '{{ csrf_token() }}',
+        currentUserId: {{ auth()->id() }},
+    })">
         
         <!-- Área de mensagens -->
         <div class="flex-1 overflow-y-auto px-4 py-4 space-y-4 bg-gray-50" x-ref="messagesContainer">
             <!-- Mensagem de sistema -->
             <x-system-message message="Chat da partida iniciado" />
+            
+            <!-- Lista de mensagens (dinâmica) -->
+            <template x-for="m in messages" :key="m.id">
+                <div>
+                    <!-- Própria (direita) -->
+                    <template x-if="m.is_own || m.user_id === currentUserId">
+                        <div class="flex items-end space-x-2 justify-end mb-2">
+                            <div class="flex-1 flex flex-col items-end">
+                                <div class="bg-blue-primary rounded-2xl rounded-tr-md shadow-sm p-3 max-w-xs sm:max-w-sm break-words">
+                                    <p class="text-white text-sm leading-relaxed" x-text="m.conteudo"></p>
+                                </div>
+                                <div class="flex items-center space-x-1 mt-1 text-xs text-gray-400">
+                                    <span x-text="m.time"></span>
+                                </div>
+                            </div>
+                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mb-4">
+                                <span class="text-white font-semibold text-xs" x-text="(m.author||'')[0]?.toUpperCase() || 'V'"></span>
+                            </div>
+                        </div>
+                    </template>
 
-            <!-- Mensagens exemplo -->
-            <x-chat-message 
-                author="João Silva" 
-                message="Pessoal, vamos nos encontrar 15 minutos antes na entrada principal!" 
-                time="14:30"
-                color="blue"
-            />
-
-            <x-chat-message 
-                author="Você" 
-                message="Perfeito! Estarei lá." 
-                time="14:32"
-                color="green"
-                :isOwn="true"
-            />
-
-            <x-chat-message 
-                author="Maria Santos" 
-                message="Alguém tem uma bola extra? A minha furou 😅" 
-                time="14:35"
-                color="purple"
-            />
-
-            <x-chat-message 
-                author="Carlos Lima" 
-                message="Tenho sim! Levo duas bolas." 
-                time="14:36"
-                color="orange"
-            />
-
-            <x-chat-message 
-                author="Você" 
-                message="Ótimo! Vou levar água para o pessoal também." 
-                time="14:38"
-                color="green"
-                :isOwn="true"
-            />
+                    <!-- De outros (esquerda) -->
+                    <template x-if="!(m.is_own || m.user_id === currentUserId)">
+                        <div class="flex items-end space-x-2 mb-2">
+                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mb-4">
+                                <span class="text-white font-semibold text-xs" x-text="(m.author||'')[0]?.toUpperCase() || '?' "></span>
+                            </div>
+                            <div class="flex-1 flex flex-col">
+                                <div class="bg-white rounded-2xl rounded-tl-md shadow-sm p-3 max-w-xs sm:max-w-sm break-words">
+                                    <p class="text-gray-900 text-sm leading-relaxed" x-text="m.conteudo"></p>
+                                </div>
+                                <div class="flex items-center space-x-1 mt-1 text-xs text-gray-400">
+                                    <span class="font-medium text-gray-600" x-text="m.author"></span>
+                                    <span>•</span>
+                                    <span x-text="m.time"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
         </div>
 
         <!-- Área de input -->
@@ -116,30 +124,63 @@
 
 @push('scripts')
 <script>
-    function chatPartida() {
+    function chatPartida({ messagesIndexUrl, messagesStoreUrl, csrfToken, currentUserId }) {
         return {
             newMessage: '',
+            messages: [],
+            messagesIndexUrl,
+            messagesStoreUrl,
+            csrfToken,
+            currentUserId,
             
             init() {
+                this.fetchMessages();
                 this.scrollToBottom();
                 // Auto-resize do textarea
                 this.$refs.messageInput.addEventListener('input', this.autoResize.bind(this));
+                // Polling simples a cada 5s (pode ser substituído por Echo)
+                this.poller = setInterval(() => this.fetchMessages(true), 5000);
             },
             
+            async fetchMessages(keepScroll = false) {
+                try {
+                    const resp = await fetch(this.messagesIndexUrl, { headers: { 'Accept': 'application/json' }});
+                    const data = await resp.json();
+                    this.messages = data.data || [];
+                    this.$nextTick(() => {
+                        if (!keepScroll) this.scrollToBottom();
+                    });
+                } catch (e) {
+                    console.error('Erro ao carregar mensagens', e);
+                }
+            },
+
             sendMessage() {
                 if (!this.newMessage.trim()) return;
-                
-                // Simular envio de mensagem
-                console.log('Enviando mensagem:', this.newMessage);
-                
-                // Limpar input
-                this.newMessage = '';
-                this.autoResize();
-                
-                // Scroll para o final
-                this.$nextTick(() => {
-                    this.scrollToBottom();
-                });
+                this.postMessage(this.newMessage.trim());
+            },
+
+            async postMessage(text) {
+                try {
+                    const resp = await fetch(this.messagesStoreUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': this.csrfToken,
+                        },
+                        body: JSON.stringify({ conteudo: text }),
+                    });
+                    if (!resp.ok) throw new Error('Falha ao enviar mensagem');
+                    const saved = await resp.json();
+                    this.messages.push(saved);
+                } catch (e) {
+                    console.error(e);
+                } finally {
+                    this.newMessage = '';
+                    this.autoResize();
+                    this.$nextTick(() => this.scrollToBottom());
+                }
             },
             
             handleEnter(event) {

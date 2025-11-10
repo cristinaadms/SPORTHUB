@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\LocalController;
 use App\Http\Controllers\PartidaController;
+use App\Http\Controllers\ChatMessageController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\Authenticated;
@@ -39,6 +40,8 @@ Route::middleware(Authenticated::class)->group(function () {
     Route::resource('local', LocalController::class)->only(['index', 'show']);
     Route::resource('partidas', PartidaController::class);
     Route::get('/partidas/{partida}/chat', [PartidaController::class, 'chat'])->name('partidas.chat');
+    Route::get('/partidas/{partida}/chat/messages', [ChatMessageController::class, 'index'])->name('partidas.chat.messages.index');
+    Route::post('/partidas/{partida}/chat/messages', [ChatMessageController::class, 'store'])->name('partidas.chat.messages.store');
     // rotas de interação com as partidas
     Route::post('/partidas/{partida}/entrar', [PartidaController::class, 'entrar'])->name('partidas.entrar');
     Route::post('/partidas/{partida}/sair', [PartidaController::class, 'sair'])->name('partidas.sair');
