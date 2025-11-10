@@ -32,7 +32,7 @@
                     <x-partida-card 
                         :id="$partida->id"
                         :tipo="$partida->tipo"
-                        :titulo="$partida->modalidade"
+                        :titulo="$partida->nome"
                         :local="$partida->local->nome"
                         :horario="$partida->getDataFormatada()"
                         :vagas="$partida->quantPessoas - $partida->participantesConfirmados()->count()"

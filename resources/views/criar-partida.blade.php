@@ -7,7 +7,9 @@
 
 @extends('layouts.app')
 
-@section('title', 'SportHub - {{ $pageTitle }}')
+@section('title')
+    SportHub - {{ $pageTitle }}
+@endsection
 
 @section('content')
     <x-header :title="$pageTitle" />
