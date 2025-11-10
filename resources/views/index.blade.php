@@ -58,7 +58,7 @@
                 @forelse($minhasPartidas as $partida)
                     <x-partida-card-vertical 
                         :status="$partida->pivot->status ?? 'pendente'" 
-                        :titulo="$partida->modalidade" 
+                        :titulo="$partida->nome" 
                         :local="$partida->local->nome"
                         :horario="$partida->getDataFormatada()" 
                         url="{{ route('partidas.show', $partida->id) }}" />
