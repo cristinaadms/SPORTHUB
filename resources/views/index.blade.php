@@ -32,7 +32,7 @@
                     <x-partida-card 
                         :id="$partida->id"
                         :tipo="$partida->tipo"
-                        :titulo="$partida->modalidade"
+                        :titulo="$partida->nome"
                         :local="$partida->local->nome"
                         :horario="$partida->getDataFormatada()"
                         :vagas="$partida->quantPessoas - $partida->participantesConfirmados()->count()"
@@ -58,7 +58,7 @@
                 @forelse($minhasPartidas as $partida)
                     <x-partida-card-vertical 
                         :status="$partida->pivot->status ?? 'pendente'" 
-                        :titulo="$partida->modalidade" 
+                        :titulo="$partida->nome" 
                         :local="$partida->local->nome"
                         :horario="$partida->getDataFormatada()" 
                         url="{{ route('partidas.show', $partida->id) }}" />

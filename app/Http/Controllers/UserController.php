@@ -19,7 +19,7 @@ class UserController extends Controller
         $dados = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
-            'telefone' => 'nullable|string',
+            'telefone' => 'nullable|string|unique:users',
             'password' => 'required|min:6',
             'role' => 'in:user,admin',
         ]);
@@ -57,7 +57,7 @@ class UserController extends Controller
         $dados = $request->validate([
             'name' => 'sometimes|string',
             'email' => 'sometimes|email|unique:users,email,'.$user->id,
-            'telefone' => 'nullable|string|unique:users,telefone',
+            'telefone' => 'nullable|string|unique:users,telefone,'.$user->id,
             'password' => 'nullable|min:6',
         ]);
 
