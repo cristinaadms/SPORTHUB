@@ -49,13 +49,6 @@
             </a>
             -->
 
-            <a href="{{ route('local.create') }}"
-                class="flex flex-col items-center py-2 px-3 {{ request()->routeIs('local.create') ? 'text-blue-primary' : 'text-gray-400 hover:text-blue-primary' }}">
-                <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                </svg>
-                <span class="text-xs font-medium">Criar Local</span>
-            </a>
         @endif
 
         <a href="{{ route('perfil') }}"

@@ -52,8 +52,7 @@
         @if ($local->imagem)
             <div class="bg-white rounded-2xl shadow-md overflow-hidden">
                 <div class="relative h-64 md:h-80">
-                    <img src="data:image/jpeg;base64,{{ base64_encode($local->imagem) }}" alt="{{ $local->nome }}"
-                        class="w-full h-full object-cover">
+                    <img src="{{ $local->imagem }}" alt="{{ $local->nome }}" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                     <div class="absolute bottom-4 left-4 right-4">
                         <h2 class="text-2xl font-bold text-white mb-2">{{ $local->nome }}</h2>
