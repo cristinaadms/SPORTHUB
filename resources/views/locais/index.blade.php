@@ -214,36 +214,41 @@
                             @endif
 
                             <!-- Botões de ação -->
-                            <div class="flex space-x-2">
-                                <a href="{{ route('local.show', $local->id) }}"
-                                    class="flex-1 px-3 py-2 bg-blue-primary hover:bg-blue-hover text-white font-semibold text-sm rounded-lg transition-colors text-center">
-                                    Ver Detalhes
-                                </a>
-
-                                @if (Auth::user() && Auth::user()->isAdmin())
-                                    <a href="{{ route('local.edit', $local->id) }}"
-                                        class="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold text-sm rounded-lg transition-colors">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                        </svg>
+                            <div class="flex flex-col justify-between h-full">
+                                <div class="flex-1">
+                                    <!-- Espaço para conteúdo dinâmico acima dos botões -->
+                                </div>
+                                <div class="flex space-x-2">
+                                    <a href="{{ route('local.show', $local->id) }}"
+                                        class="flex-1 px-3 py-2 bg-blue-primary hover:bg-blue-hover text-white font-semibold text-sm rounded-lg transition-colors text-center">
+                                        Ver Detalhes
                                     </a>
 
-                                    <!-- Botão de excluir -->
-                                    <form action="{{ route('local.destroy', $local->id) }}" method="POST"
-                                        onsubmit="return confirm('Tem certeza que deseja excluir este local?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit"
-                                            class="px-3 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold text-sm rounded-lg transition-colors">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
+                                    @if (Auth::user() && Auth::user()->isAdmin())
+                                        <a href="{{ route('local.edit', $local->id) }}"
+                                            class="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold text-sm rounded-lg transition-colors">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M6 18L18 6M6 6l12 12" />
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                             </svg>
-                                        </button>
-                                    </form>
-                                @endif
+                                        </a>
+
+                                        <!-- Botão de excluir -->
+                                        <form action="{{ route('local.destroy', $local->id) }}" method="POST"
+                                            onsubmit="return confirm('Tem certeza que deseja excluir este local?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="px-3 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold text-sm rounded-lg transition-colors">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M6 18L18 6M6 6l12 12" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
