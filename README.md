@@ -15,8 +15,5 @@ A SportHub é uma plataforma desenvolvida para organizar partidas esportivas e r
 - Blade
 - PostgreSQL
 
-## Identidade Visual
-![Image](https://github.com/user-attachments/assets/b9912ab1-110d-48f5-8b0e-3d95702045c2)
-
 ## Licença
 Este projeto está licenciado sob a Licença MIT.
