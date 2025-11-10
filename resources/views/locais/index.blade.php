@@ -126,7 +126,8 @@
                         <!-- Imagem ou placeholder -->
                         <div class="relative h-48 bg-gray-100 rounded-t-2xl overflow-hidden">
                             @if ($local->imagem)
-                                <img src="{{ $local->imagem }}" alt="{{ $local->nome }}" class="w-full h-full object-cover">
+                                <img src="{{ $local->imagem }}" alt="{{ $local->nome }}"
+                                    class="w-full h-full object-cover">
                                 <div class="absolute top-2 right-2">
                                     <span
                                         class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -218,6 +219,7 @@
                                     class="flex-1 px-3 py-2 bg-blue-primary hover:bg-blue-hover text-white font-semibold text-sm rounded-lg transition-colors text-center">
                                     Ver Detalhes
                                 </a>
+
                                 @if (Auth::user() && Auth::user()->isAdmin())
                                     <a href="{{ route('local.edit', $local->id) }}"
                                         class="px-3 py-2 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold text-sm rounded-lg transition-colors">
@@ -226,6 +228,21 @@
                                                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                         </svg>
                                     </a>
+
+                                    <!-- Botão de excluir -->
+                                    <form action="{{ route('local.destroy', $local->id) }}" method="POST"
+                                        onsubmit="return confirm('Tem certeza que deseja excluir este local?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="px-3 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold text-sm rounded-lg transition-colors">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </form>
                                 @endif
                             </div>
                         </div>
