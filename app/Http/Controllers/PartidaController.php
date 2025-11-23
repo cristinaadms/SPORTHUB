@@ -96,6 +96,9 @@ class PartidaController extends Controller
     {
         $userId = Auth::id();
 
+        // Carregar o local com suas avaliações
+        $partida->load(['local.avaliacoes']);
+
         if ($partida->criador_id === $userId) {
             $statusUsuario = 'organizador';
         } elseif ($partida->participantesConfirmados()->where('user_id', $userId)->exists()) {
