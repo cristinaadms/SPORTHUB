@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'SportHub - {{ $local->nome }}')
+@section('title')
+    SportHub - {{ $local->nome }}
+@endsection
 
 @section('content')
     <header class="bg-white shadow-sm sticky top-0 z-40">
