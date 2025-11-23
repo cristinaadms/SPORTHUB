@@ -18,12 +18,23 @@ class ChatMessageController extends Controller
             ->orderBy('created_at')
             ->get()
             ->map(function ($m) {
+                $isToday = $m->created_at->isToday();
+                $isYesterday = $m->created_at->isYesterday();
+                
+                if ($isToday) {
+                    $timeDisplay = $m->created_at->format('H:i');
+                } elseif ($isYesterday) {
+                    $timeDisplay = 'Ontem às ' . $m->created_at->format('H:i');
+                } else {
+                    $timeDisplay = $m->created_at->format('d/m/Y H:i');
+                }
+                
                 return [
                     'id' => $m->id,
                     'author' => $m->user->name,
                     'user_id' => $m->user_id,
                     'conteudo' => $m->conteudo,
-                    'time' => $m->created_at->format('H:i'),
+                    'time' => $timeDisplay,
                     'is_own' => $m->user_id === Auth::id(),
                 ];
             });
@@ -47,12 +58,23 @@ class ChatMessageController extends Controller
 
         $message->load('user:id,name');
 
+        $isToday = $message->created_at->isToday();
+        $isYesterday = $message->created_at->isYesterday();
+        
+        if ($isToday) {
+            $timeDisplay = $message->created_at->format('H:i');
+        } elseif ($isYesterday) {
+            $timeDisplay = 'Ontem às ' . $message->created_at->format('H:i');
+        } else {
+            $timeDisplay = $message->created_at->format('d/m/Y H:i');
+        }
+
         return response()->json([
             'id' => $message->id,
             'author' => $message->user->name,
             'user_id' => $message->user_id,
             'conteudo' => $message->conteudo,
-            'time' => $message->created_at->format('H:i'),
+            'time' => $timeDisplay,
             'is_own' => true,
         ], 201);
     }
