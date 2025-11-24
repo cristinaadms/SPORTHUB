@@ -14,11 +14,13 @@
 
 <div class="space-y-3">
     <!-- Botão de chat -->
+     @if ($statusUsuario === 'confirmado' || $ehOrganizador)
     <a href="{{ route('partidas.chat', $partida) }}"
         class="w-full bg-blue-primary hover:bg-blue-hover text-white font-semibold py-4 px-6 rounded-2xl transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center space-x-2">
         <x-dynamic-component :component="'icons.chat'" class="w-5 h-5" />
         <span>Chat da Partida</span>
     </a>
+    @endif
 
     <div class="grid grid-cols-2 gap-3">
         <!-- botão de compartilhar (mantém visibilidade quando quiser) -->
