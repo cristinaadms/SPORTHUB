@@ -40,13 +40,13 @@
                     @endif
                 </h2>
 
-                <a href="#" class="text-blue-primary text-sm font-medium hover:text-blue-hover transition-colors">Ver
+                <a href="#" id="toggleProximas" class="text-blue-primary text-sm font-medium hover:text-blue-hover transition-colors">Ver
                     todas</a>
             </div>
 
             <!-- Cards horizontais -->
 
-            <div class="space-y-3">
+            <div id="proximasList" class="space-y-3">
                 @forelse ($proximasPartidas as $partida)
                     @php
                         // Verifica se o cálculo de distância existe neste objeto, formatando para "3,5 Km"
@@ -68,7 +68,7 @@
         <section>
             <div class="flex items-center justify-between mb-4">
                 <h2 class="text-lg font-semibold text-gray-900">Minhas partidas</h2>
-                <a href="#" class="text-blue-primary text-sm font-medium hover:text-blue-hover transition-colors">Ver
+                <a href="{{ route('minhas-partidas') }}" class="text-blue-primary text-sm font-medium hover:text-blue-hover transition-colors">Ver
                     todas</a>
             </div>
 
@@ -126,5 +126,50 @@
                 }
             );
         }
+    </script>
+    <script>
+        // Toggle para expandir/recolher a lista de próximas partidas
+        document.addEventListener('DOMContentLoaded', function () {
+            const maxShow = 3;
+            const list = document.getElementById('proximasList');
+            const toggleBtn = document.getElementById('toggleProximas');
+
+            if (!list || !toggleBtn) return;
+
+            const items = Array.from(list.querySelectorAll(':scope > *'));
+
+            // Se não houver mais que o limite, esconde o botão
+            if (items.length <= maxShow) {
+                toggleBtn.style.display = 'none';
+                return;
+            }
+
+            // estado inicial: recolhido
+            toggleBtn.dataset.expanded = 'false';
+
+            function updateView() {
+                const expanded = toggleBtn.dataset.expanded === 'true';
+                items.forEach((el, idx) => {
+                    if (!expanded && idx >= maxShow) {
+                        el.classList.add('hidden');
+                    } else {
+                        el.classList.remove('hidden');
+                    }
+                });
+                toggleBtn.textContent = expanded ? 'Ver menos' : 'Ver todas';
+            }
+
+            updateView();
+
+            toggleBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                toggleBtn.dataset.expanded = toggleBtn.dataset.expanded === 'true' ? 'false' : 'true';
+                updateView();
+                // rola para o topo da lista quando expande para melhorar UX
+                if (toggleBtn.dataset.expanded === 'true') {
+                    list.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
     </script>
 @endpush
