@@ -2,6 +2,10 @@
 
 @props(['tipo', 'titulo', 'local', 'horario', 'vagas' => null, 'status', 'url'])
 
+@php
+    $filtroAtivo = request()->has('lat') && request()->has('lon') && request()->has('raio');
+@endphp
+
 @section('title', 'SportHub - Dashboard')
 
 @section('content')
@@ -84,14 +88,20 @@
 
 @push('scripts')
     <script>
+        const filtroAtivo = @json($filtroAtivo);
+
         function buscarPartidasProximas() {
+            if (filtroAtivo) {
+                // Vai para a home sem filtros
+                window.location.href = `{{ route('index') }}`;
+                return;
+            }
+
             // Verifica se o navegador suporta geolocalização
             if (!navigator.geolocation) {
                 alert("Seu navegador não suporta geolocalização.");
                 return;
             }
-
-            alert("Buscando sua localização...");
 
             navigator.geolocation.getCurrentPosition(
                 (position) => {
