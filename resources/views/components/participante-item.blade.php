@@ -1,11 +1,22 @@
-@props(['nome', 'cargo' => '', 'cor' => 'blue', 'status' => null, 'organizador' => false])
-
+@props([
+    'nome',
+    'cargo' => '',
+    'cor' => 'blue',
+    'status' => null,
+    'organizador' => false,
+    'ehOrganizadorDaPartida' => false,
+    'userId',
+    'partidaId'
+])
 <div
-    class="flex items-center space-x-3 p-3 {{ $organizador ? 'bg-blue-light' : 'hover:bg-gray-50' }} rounded-xl transition-colors">
+    class="flex items-center gap-3 p-3 {{ $organizador ? 'bg-blue-light' : 'hover:bg-gray-50' }} rounded-xl transition-colors">
+
+    {{-- Avatar --}}
     <div class="relative">
         <div class="w-12 h-12 bg-{{ $cor }}-500 rounded-full flex items-center justify-center">
             <span class="text-white font-semibold text-lg">{{ strtoupper(substr($nome, 0, 1)) }}</span>
         </div>
+
         @if ($organizador)
             <div class="absolute -bottom-1 -right-1 bg-yellow-400 rounded-full p-1">
                 <x-dynamic-component :component="'icons.star'" class="w-3 h-3 text-white" />
@@ -13,14 +24,58 @@
         @endif
     </div>
 
-    <div class="flex-1">
-        <p class="font-semibold text-gray-900">{{ $nome }}</p>
+    {{-- Nome + cargo --}}
+    <div class="flex-1 min-w-0">
+        <p class="font-semibold text-gray-900 truncate">{{ $nome }}</p>
+
         @if ($cargo)
-            <p class="text-sm text-gray-secondary">{{ $cargo }}</p>
+            <p class="text-sm text-gray-secondary truncate">{{ $cargo }}</p>
         @endif
     </div>
 
-    @if ($status)
-        <x-badge :text="$status" color="green" />
+    {{-- SOMENTE SE FOR ORGANIZADOR DA PARTIDA --}}
+    @if ($ehOrganizadorDaPartida)
+
+        {{-- STATUS PENDENTE → ACEITAR / RECUSAR --}}
+        @if ($status === 'pendente')
+            <div class="flex gap-2">
+
+                <form action="{{ route('partidas.aceitar', [$partidaId, $userId]) }}" method="POST">
+                    @csrf
+                    <button
+                        class="px-2 py-1 text-xs bg-green-500 text-white rounded-lg hover:bg-green-600 transition whitespace-nowrap">
+                        Aceitar
+                    </button>
+                </form>
+
+                <form action="{{ route('partidas.recusar', [$partidaId, $userId]) }}" method="POST">
+                    @csrf
+                    <button
+                        class="px-2 py-1 text-xs bg-red-500 text-white rounded-lg hover:bg-red-600 transition whitespace-nowrap">
+                        Recusar
+                    </button>
+                </form>
+
+            </div>
+        @endif
+
+        {{-- STATUS CONFIRMADO → EXPULSAR --}}
+        @if ($status === 'confirmado')
+            <form action="{{ route('partidas.expulsar', [$partidaId, $userId]) }}" method="POST">
+                @csrf
+                <button
+                    class="px-3 py-1 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 transition whitespace-nowrap">
+                    Expulsar
+                </button>
+            </form>
+        @endif
+
+    @else
+
+        {{-- SE NÃO FOR ORGANIZADOR, MOSTRA O BADGE APENAS SE AINDA FOR PENDENTE --}}
+        @if ($status === 'pendente')
+            <x-badge text="pendente" color="yellow" />
+        @endif
+
     @endif
 </div>

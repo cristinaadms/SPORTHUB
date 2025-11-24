@@ -44,6 +44,12 @@ Route::middleware(Authenticated::class)->group(function () {
     Route::post('/partidas/{partida}/chat/messages', [ChatMessageController::class, 'store'])->name('partidas.chat.messages.store');
     // rotas de interação com as partidas
     Route::post('/partidas/{partida}/entrar', [PartidaController::class, 'entrar'])->name('partidas.entrar');
+    Route::post('/partidas/{partida}/aceitar/{user}', [PartidaController::class, 'aceitar'])->name('partidas.aceitar');
+    Route::post('/partidas/{partida}/recusar/{user}', [PartidaController::class, 'recusar'])->name('partidas.recusar');
+
+    // GERENCIAR PARTICIPANTES
+    Route::post('/partidas/{partida}/expulsar/{user}', [PartidaController::class, 'expulsar'])->name('partidas.expulsar');
+
     Route::post('/partidas/{partida}/sair', [PartidaController::class, 'sair'])->name('partidas.sair');
     Route::post('/partidas/{partida}/cancelar', [PartidaController::class, 'cancelarSolicitacao'])->name('partidas.cancelar');
     // Avaliações

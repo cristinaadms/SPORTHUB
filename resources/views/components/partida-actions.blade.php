@@ -22,16 +22,12 @@
 
     <div class="grid grid-cols-2 gap-3">
         <!-- botão de compartilhar (mantém visibilidade quando quiser) -->
-        <button
-            class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-xl transition-colors flex items-center justify-center space-x-2">
-            <x-dynamic-component :component="'icons.share'" class="w-5 h-5" />
-            <span>Compartilhar</span>
-        </button>
+
 
         {{-- ORGANIZADOR --}}
         @if ($ehOrganizador)
             <button disabled
-                class="bg-gray-100 text-gray-400 font-semibold py-3 px-4 rounded-xl cursor-not-allowed flex items-center justify-center space-x-2">
+                class="col-span-2 w-full bg-gray-100 text-gray-400 font-semibold py-3 px-4 rounded-xl cursor-not-allowed flex items-center justify-center space-x-2">
                 <x-dynamic-component :component="'icons.users'" class="w-5 h-5" />
                 <span>Organizador</span>
             </button>

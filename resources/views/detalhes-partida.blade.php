@@ -3,7 +3,7 @@
 @section('title', 'SportHub - Detalhes da Partida')
 
 @section('content')
-    <x-header title="Detalhes da Partida" :backButton="true" />
+    <x-header title="Detalhes da partida" :backButton="true" />
 
     <!-- Conteúdo principal -->
     <main class="px-4 py-6 space-y-6">
@@ -67,15 +67,20 @@
             </div>
         </div>
 
-        <x-participantes-list :participantes="$partida->participantes->map(function ($user) use ($partida) {
-            return [
-                'nome' => $user->name,
-                'cargo' => $user->id === auth()->id() ? 'Você' : null,
-                'organizador' => $user->id === $partida->criador_id,
-                'status' => $user->pivot->status,
-                'cor' => $user->id === $partida->criador_id ? 'blue' : 'green',
-            ];
-        })" />
+        <x-participantes-list 
+            :partida="$partida"
+            :participantes="$partida->participantes->map(function ($user) use ($partida) {
+                return [
+                    'user_id' => $user->id,
+                    'nome' => $user->name,
+                    'cargo' => $user->id === auth()->id() ? 'Você' : null,
+                    'organizador' => $user->id === $partida->criador_id,
+                    'status' => $user->pivot->status,
+                    'cor' => $user->id === $partida->criador_id ? 'blue' : 'green',
+                ];
+            })" 
+        />
+
 
         <x-partida-actions 
             :partida="$partida"

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Local;
 use App\Models\Partida;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -213,4 +214,33 @@ class PartidaController extends Controller
 
         return back()->with('info', 'Solicitação cancelada.');
     }
+    public function aceitar(Partida $partida, User $user)
+    {
+        $partida->aceitarPedido($user->id);
+
+        return back()->with('success', 'Participante aceito.');
+    }
+
+    public function recusar(Partida $partida, User $user)
+{
+    if (auth()->id() !== $partida->criador_id) {
+        abort(403, 'Apenas o organizador pode fazer isso.');
+    }
+
+    $partida->participantes()->detach($user->id);
+
+    return back()->with('success', 'Participante recusado.');
+}
+
+    public function expulsar(Partida $partida, User $user)
+    {
+        if (auth()->id() !== $partida->criador_id) {
+            abort(403, 'Apenas o organizador pode fazer isso.');
+        }
+
+        $partida->participantes()->detach($user->id);
+
+        return back()->with('success', 'Participante expulso da partida.');
+    }
+
 }

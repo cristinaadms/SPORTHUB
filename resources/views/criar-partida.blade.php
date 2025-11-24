@@ -67,7 +67,10 @@
                             <span class="text-gray-700 text-sm">Privada</span>
 
                             <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" id="tipo-toggle" name="tipo" value="publica" class="sr-only peer"
+                                <input type="hidden" name="tipo" value="privada">
+
+                                <input type="checkbox" id="tipo-toggle" name="tipo" value="publica"
+                                    class="sr-only peer"
                                     {{ old('tipo', $partida->tipo ?? 'publica') === 'publica' ? 'checked' : '' }}>
                                 <div
                                     class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-primary relative after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:after:translate-x-full">

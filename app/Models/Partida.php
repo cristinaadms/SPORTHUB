@@ -56,7 +56,7 @@ class Partida extends Model
     public function participantesEspera()
     {
         return $this->belongsToMany(User::class, 'partida_user')
-                    ->wherePivot('status', 'espera')
+                    ->wherePivot('status', 'pendente') // CORRETO
                     ->withPivot('status')
                     ->withTimestamps();
     }

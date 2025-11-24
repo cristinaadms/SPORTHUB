@@ -1,4 +1,4 @@
-@props(['participantes' => []])
+@props(['participantes' => [], 'partida'])
 
 <div class="bg-white rounded-2xl shadow-md p-6">
     <div class="flex items-center justify-between mb-4">
@@ -8,13 +8,17 @@
 
     <div class="space-y-3">
         @foreach($participantes as $p)
-            <x-participante-item 
+            <x-participante-item
                 :nome="$p['nome']"
-                :cargo="$p['cargo'] ?? ''"
-                :cor="$p['cor'] ?? 'blue'"
-                :status="$p['status'] ?? null"
-                :organizador="$p['organizador'] ?? false"
+                :cargo="$p['cargo']"
+                :cor="$p['cor']"
+                :status="$p['status']"
+                :organizador="$p['user_id'] === $partida->criador_id"
+                :ehOrganizadorDaPartida="auth()->id() === $partida->criador_id"
+                :userId="$p['user_id']"
+                :partidaId="$partida->id"
             />
         @endforeach
+
     </div>
 </div>
