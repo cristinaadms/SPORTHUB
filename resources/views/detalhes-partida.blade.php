@@ -3,7 +3,34 @@
 @section('title', 'SportHub - Detalhes da Partida')
 
 @section('content')
-    <x-header title="Detalhes da partida" :backButton="true" />
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <button onclick="history.back()" class="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 transition-colors">
+                        <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900">{{ $partida->nome }}</h1>
+                        <p class="text-sm text-gray-secondary">Detalhes da partida</p>
+                    </div>
+                </div>
+                @if (Auth::user() && Auth::user()->isAdmin())
+                    <div class="flex space-x-2">
+                        <a href="{{ route('local.edit', $local->id) }}"
+                            class="p-2 rounded-xl bg-yellow-500 hover:bg-yellow-600 text-white transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                            </svg>
+                        </a>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </header>
 
     <!-- Conteúdo principal -->
     <main class="px-4 py-6 space-y-6">
