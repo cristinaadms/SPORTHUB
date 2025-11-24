@@ -327,4 +327,27 @@
             }
         }, 5000);
     </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    fetch("{{ route('dashboard.setLocation') }}", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                        },
+                        body: JSON.stringify({
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude
+                        })
+                    }).then(() => {
+                        // Recarrega a página para aplicar o filtro
+                        location.reload();
+                    });
+                });
+            }
+        });
+    </script>
 @endpush

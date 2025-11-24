@@ -51,6 +51,26 @@
         <!-- Menu de opções -->
         <div class="bg-white rounded-2xl shadow-md overflow-hidden">
             <div class="divide-y divide-gray-200">
+                <div class="p-4">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <svg class="w-5 h-5 text-blue-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <span class="font-medium text-gray-900">Raio de busca</span>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <input type="range" id="radiusInput" min="5" max="100" step="5"
+                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-primary">
+
+                        <span class="text-sm font-bold text-blue-primary whitespace-nowrap">
+                            <span id="radiusValue">50</span> km
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Distância máxima para encontrar partidas.</p>
+                </div>
+
                 <a href="{{ route('perfil.edit') }}"
                     class="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors bg-white rounded-xl">
                     <div class="flex items-center space-x-3">
@@ -85,3 +105,36 @@
         </div>
     </main>
 @endsection
+
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const input = document.getElementById('radiusInput');
+            const display = document.getElementById('radiusValue');
+
+            // Ler do LocalStorage
+            const salvo = localStorage.getItem('sportHub_raio');
+
+            if (salvo) {
+                input.value = salvo;
+                display.innerText = salvo;
+            } else {
+                // Define padrão 50 se nunca salvou antes
+                input.value = 50;
+                display.innerText = 50;
+            }
+
+            // Evento visual enquanto arrasta
+            input.addEventListener('input', function() {
+                display.innerText = this.value;
+            });
+
+            // Evento de salvar (ao soltar o slider)
+            input.addEventListener('change', function() {
+                localStorage.setItem('sportHub_raio', this.value);
+                // Opcional: Console log para você confirmar que salvou
+                console.log('Raio salvo:', this.value);
+            });
+        });
+    </script>
+@endpush
