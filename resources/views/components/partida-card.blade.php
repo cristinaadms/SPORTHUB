@@ -32,6 +32,8 @@
     ];
 
     $isDisabled = !$organizador && in_array($status, ['lotado', 'pendente', 'finalizada']);
+    // Largura padrão para botões principais (padroniza Ver detalhes / Editar / Remover)
+    $buttonWidth = 'w-40';
 @endphp
 
 <div
@@ -79,7 +81,7 @@
                 <form method="POST" action="{{ route('partida.entrar', $id) }}"> 
                     @csrf 
                     <button type="submit"
-                        class="{{ $currentButton['class'] }} px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
+                        class="{{ $currentButton['class'] }} {{ $buttonWidth }} px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
                         {{ $currentButton['text'] }} 
                     </button>
                 </form>
@@ -87,7 +89,7 @@
                 <button 
                     @if (!$isDisabled) onclick="{{ $buttonAction ?? "window.location.href='$url'" }}" @endif
                     {{ $isDisabled ? 'disabled' : '' }}
-                    class="{{ $currentButton['class'] }} px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
+                    class="{{ $currentButton['class'] }} {{ $buttonWidth }} px-4 py-2 rounded-xl font-semibold text-sm transition-colors shadow-sm">
                     {{ $currentButton['text'] }}
                 </button>
             @endif
@@ -95,7 +97,7 @@
             <!-- Botão de edição (apenas para organizador) -->
             @if ($organizador)
                 <a href="{{ route('partidas.edit', $id) }}"
-                    class="px-4 py-2 bg-yellow-500 text-white rounded-xl text-sm font-medium hover:bg-yellow-600 transition-colors">
+                    class="{{ $buttonWidth }} px-4 py-2 bg-yellow-500 text-white rounded-xl text-sm font-medium hover:bg-yellow-600 transition-colors text-center">
                     Editar Partida
                 </a>
 
@@ -105,7 +107,7 @@
                     @csrf
                     @method('DELETE')
                     <button type="submit"
-                        class="px-4 py-2 bg-red-500 text-white rounded-xl text-sm font-medium hover:bg-red-600 transition-colors">
+                        class="{{ $buttonWidth }} px-4 py-2 bg-red-500 text-white rounded-xl text-sm font-medium hover:bg-red-600 transition-colors">
                         Remover Partida
                     </button>
                 </form>
